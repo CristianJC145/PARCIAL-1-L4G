@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+landing
+{% endblock %}
+
+{% block content %}
+<img class= "img_background" src="static/resources/background.jpg" alt="">
+<div class="wrapper">
+        <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                                <img src="/static/resources/gratis-png-comida-preparada-logo-comida-salud-salud.png" alt="" width="70" height="64"class="d-inline-block align-text-top">
+                        </a>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href =" {{ url_for('registrar_empresa') }} ">Registra tu Empresa</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" role="button" href="{{ url_for('login') }}" style="background: rgba(110, 105, 105, 0.068);">Entrar</a>
+                                        </li>
+                                </ul>
+                                <form class="d-flex">
+                                        <input class="form-control me-2" type="search" placeholder="Search"
+                                                aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                        </div>
+                </div>
+          </nav>
+        <div class="container">
+                <img class="img_hamburguesa" src="static/resources/IMG1.png" alt="">
+        </div>
+
+</div>
+{% endblock %}

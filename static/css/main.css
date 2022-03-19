@@ -1,0 +1,28 @@
+html,
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    font-size: 16px;
+    margin: 0;
+}
+.main-view{
+    background: rgb(88, 83, 83);
+}
+.img_hamburguesa{
+    top: 100px;
+    left: 60%;
+    position: relative;
+    display: grid;
+    width: 400px;
+}
+.img_background{
+    width: 100%;
+    position: absolute;
+}
+.wrapper{
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.navbar-nav.me-auto.mb-2.mb-lg-0{
+    column-gap: 30px;
+}
