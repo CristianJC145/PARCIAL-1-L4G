@@ -1,11 +1,8 @@
-from types import NoneType
+from django.contrib import messages
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
-import time
-from models import empresasModels
-from models import validarDatos
-from models import autenticacionCorreo
+from models import empresasModels, validarDatos, autenticacionCorreo
 
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
@@ -25,8 +22,6 @@ def confirmar_email(token):
     return redirect(url_for('login'))
 
     
-    
-
 @app.route('/register', methods=['GET', 'POST'])
 def registrar_empresa():
     if request.method == 'GET':
@@ -100,7 +95,7 @@ def login():
         flash('Correo no verificado, revisa tu correo', 'error')
         is_valid=False
     if password_e is None:
-        flash('Contraseña incorrecta', 'error')
+        flash('contraseña incorrecta, intente de nuevo', 'error')
         is_valid=False
     if is_valid==False:
         return render_template("login.html",

@@ -5,36 +5,50 @@ landing
 {% endblock %}
 
 {% block content %}
-<img class= "img_background" src="static/resources/background.jpg" alt="">
-<div class="wrapper">
-        <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                        <a class="navbar-brand" href="#">
-                                <img src="/static/resources/gratis-png-comida-preparada-logo-comida-salud-salud.png" alt="" width="70" height="64"class="d-inline-block align-text-top">
+<link rel="stylesheet" href="static/css/margin.css">
+<div id="root">
+        <div class="Layout">
+                <header class="Header">
+                        <a class="LogoButton" href="#">
+                                <img src="static/resources/preloader_logo.png" alt="" data-t="header-logo" class="Logo">
                         </a>
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                        <li class="nav-item">
-                                                <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                                <a class="nav-link" href =" {{ url_for('registrar_empresa') }} ">Registra tu Empresa</a>
-                                        </li>
-                                        <li class="nav-item">
-                                                <a class="nav-link" role="button" href="{{ url_for('login') }}" style="background: rgba(110, 105, 105, 0.068);">Entrar</a>
-                                        </li>
-                                </ul>
-                                <form class="d-flex">
-                                        <input class="form-control me-2" type="search" placeholder="Search"
-                                                aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
-                                </form>
+                        <div class="ButtonsGroup-ButtonHolder">
+                                <a class="StyledButton-left" data-t="header-up-sign-in" href="{{ url_for('login') }}">
+                                        <span class="CallToAction">acceder</span>
+                                </a>
+                                <a class="StyledButton-right" href="{{ url_for('registrar_empresa') }}" style="--clr: #3cff00;--i:0;">
+                                        <span class="CallToAction">registrarse</span>
+                                </a>
+                        </div>
+                </header>
+                <div class="StackedLayout">
+                        <div class="ContentBlock">
+                                <section data-t="hero-block-section" class="HeroBlock">
+                                        <div class="ImageWrapper">
+                                                <img src="static/resources/bg2.png" alt="background" class="Image">
+                                        </div>
+                                        <div class="TitleWrapper">
+                                                <h1 type="heavy" class="Title-Heading">Pedir comida nunca fue tan facil, que esperas!</h1>
+                                                <div role="button" tabindex="0" data-t="hero-block-button" type="one"
+                                                        class="StyledButton">
+                                                        <span class="CallToAction">ver restaurantes</span>
+                                                </div>
+                                                <div class="loaderWrapper">
+                                                        <span style="--i:1;"></span>
+                                                        <span style="--i:2;"></span>
+                                                        <span style="--i:3;"></span>
+                                                        <span style="--i:4;"></span>
+                                                        <span style="--i:5;"></span>
+                                                        <span style="--i:6;"></span>
+                                                        <span style="--i:7;"></span>
+                                                        <span style="--i:8;"></span>
+                                                        <span style="--i:9;"></span>
+                                                        <span style="--i:10;"></span>
+                                                </div>
+                                        </div>
+                                </section>
                         </div>
                 </div>
-          </nav>
-        <div class="container">
-                <img class="img_hamburguesa" src="static/resources/IMG1.png" alt="">
         </div>
-
 </div>
 {% endblock %}

@@ -36,7 +36,7 @@ def crearEmpresa(imagen, nombre_empresa, contacto, direccion, email, password, d
                 email,
                 contraseña,
                 descripcion,
-                estado
+                estado,
                 emailbienvenida
             )values (%s,%s,%s,%s,%s,%s,%s,0,0)
         """, (imagen, nombre_empresa, contacto, direccion, email, password, descripcion,))
