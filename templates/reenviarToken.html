@@ -1,0 +1,10 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+landing
+{% endblock %}
+
+{% block content %}
+<h1>El token ha expirado</h1>
+    <a type="button" class="btn btn-outline-primary" href="{{ url_for('index')}}">volver</a>
+{% endblock %}

@@ -134,6 +134,39 @@ section .contentBx .formBx .sci li img{
     transform: scale(0.22);
     filter: invert(1)
 }
+.passw{
+    outline: none;
+    width: 100%;
+    background-color: white;
+    color: #121212;
+    border: none;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    padding-left: .5rem;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.icon{
+    position: absolute;
+    height: 2rem;
+    position: absolute;
+
+    transform: translateY(-50%);
+    opacity: 0.3;
+    cursor: pointer;
+}
+.img-eye{
+    float: right;
+    margin: -22px 40px;
+}
+
+.icon:hover{
+    opacity: 0.8;
+}
 @media (max-width: 768px) {
     section .imgBx{
         position: absolute;

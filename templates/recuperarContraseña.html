@@ -9,31 +9,20 @@
     <title>Document</title>
 </head>
 <body>
-    <section>
+    <section style="background: rgb(235, 170, 198)">
     <div class="imgBx"></div>
         <img src="static/resources/bg.png" alt="" class="img_bg">
     <div class="contentBx">
-        <div class="formBx">
-            <h2>Login</h2>
-            <form autocomplete="on" id="login-form" class="form" action="{{ url_for('login') }}" method="POST">
+        <div class="formBx" style="border-radius: 15px;">
+            <h2>recover your account</h2>
+            <form autocomplete="on" id="login-form" class="form" action="{{ url_for('recuperarContraseña') }}" method="POST">
                 <div class="inputBx">
-                    <span>Email</span>
-                    <input type="text" name="email" id="email" class="form-control" value="{{ email }}">
+                    <span style="padding: 10px">Please enter your email to recover your account</span>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="email">
                 </div>
-                <div class="inputBx">
-                    <span>Password</span>
-                    <input type="password" name="password" id="password" class="form-control">
-                </div>
-                <div class="remember">
-                    <label for="">
-                        <input type="checkbox" name="" id=""> Remember me
-                    </label>
-                </div>
-                <div class="inputBx">
-                    <input type="submit" value="Sign in">
-                    <p>
-                        <a href="{{ url_for('recuperarContraseña')}}">Forgot password? recover here</a>
-                    </p>
+                <div class="inputBx" >
+                    <input type="submit" value="Search" style="padding: 9px; width: 30%; border-radius: 15px">
+                    <a href="{{ url_for('login') }}" class="btn" style=" padding: 7px; width: 30%; border-radius: 15px; background: #607db8">Cancel</a>
                 </div>
                 {% with messages = get_flashed_messages(category_filter=['success']) %}
                 {% if messages %}
@@ -60,12 +49,7 @@
                     </p>
                 </div>
             </form>
-            <h3>Login with social media</h3>
-            <ul class="sci">
-                <li><img src="static/resources/facebook.png" alt=""></li>
-                <li><img src="static/resources/twitter.png" alt=""></li>
-                <li><img src="static/resources/instagram.png" alt=""></li>
-            </ul>
+        
         </div>
         <a href="{{ url_for('index') }}">
             <img src="static/resources/preloader_logo2.png" alt="" class="img_home">
