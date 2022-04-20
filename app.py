@@ -1,10 +1,8 @@
-from os import link
-from urllib.request import Request
-from django.contrib import messages
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
 from models import empresasModels, validarDatos, autenticacionCorreo
+from controllers import empresaControllers
 
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
@@ -34,7 +32,7 @@ def registrar_empresa():
     email = request.form.get('email')
     direccion = request.form.get('direccion')
     descripcion = request.form.get('descripcion')
-    imagen = request.form.get('imagen')
+    imagen = request.files['imagen']
     password = request.form.get('password')
 
     email_empresa = empresasModels.obtenerEmail(email)
@@ -62,12 +60,15 @@ def registrar_empresa():
         descripcion = descripcion,
         imagen = imagen,
         )
+    img = empresaControllers.nombreImagen(imagen)
+    imagen.save('./static/resources/imagen_empresa/'+str(img))
+
 
     token = s.dumps(email, salt='confirmacion-email')
     link = url_for('confirmar_email', token=token, _external=True)
     autenticacionCorreo.enviarEmail(email,link)
     password = hashlib.sha1(password.encode()).hexdigest()
-    empresasModels.crearEmpresa(imagen, nombre_empresa, contacto, direccion, email, password, descripcion)
+    empresasModels.crearEmpresa(imagen='/static/resources/imagen_empresa/'+img, nombre_empresa=nombre_empresa, contacto=contacto, direccion=direccion, email=email, password=password, descripcion=descripcion)
     flash('Revisa tu buzon para continuar', 'success')
     return redirect(url_for('login'))
 
@@ -101,12 +102,21 @@ def login():
     if is_valid==False:
         return render_template("login.html",
         email=email,)
-    return redirect(url_for('contents_empresa'))
+
+    session['user_id'] = email2
+    return redirect(url_for('home'))
+
+@app.route('/logout') 
+def logout():
+    session.clear()
+
+    return redirect(url_for('login'))
 
 @app.route('/recuperarContraseña', methods=['GET', 'POST']) 
 def recuperarContraseña():
     if request.method == 'GET':
         return render_template('recuperarContraseña.html')
+
     email = request.form.get('email')
     email_c = empresasModels.obtenerEmail0(email)
     if email_c is None:
@@ -144,10 +154,102 @@ def cambiarContraseña(email):
         flash('Se ha restablecido correctamente su contraseña', 'success')
         return redirect(url_for('login'))
 
-@app.route('/empresas/contents_empresa', methods=['GET'])
-def contents_empresa():
+@app.route('/empresas/empresaPagina')
+def home():
+
+    return render_template('empresas/home.html')
+
+@app.route('/empresas/empresaPagina/categorias')
+def categorias():
+    id=empresaControllers.obtenerId(session)
+    categorias = empresasModels.listarCategoria(id)
+    return render_template('/categorias/listarCategoria.html', categorias=categorias)
+
+@app.route('/empresas/empresaPagina/categorias/eliminar/<string:id>')
+def eliminarCategoria(id):
+    empresasModels.eliminarCategoria(id)
+    return redirect(url_for('categorias'))
+
+          
+   
+@app.route('/empresas/empresaPagina/categorias/crear', methods=['GET', 'POST'])
+def crearCategoria():
     if request.method == 'GET':
-        return render_template('empresas/empresa.html')
+        return render_template('/categorias/crearCategoria.html')
+    id=str(session['user_id'][0])
+    nombreCategoria = request.form.get('nombreCategoria').upper()
+    if(nombreCategoria==""):
+        flash('El campo nombre categoria es requerido', 'error')
+        return redirect(request.url)
+    if empresasModels.obtenerCategoria(nombreCategoria):
+        flash('Ya existe esta categoria', 'error')
+        return redirect(request.url)
+    try:
+        empresasModels.crearCategoria(id,nombreCategoria)
+    except:
+        flash('No se ha podido guardar la categoria', 'error')
+        return redirect(request.url)
+    flash('Se creo correctamente la categoria', 'success')
+    return redirect(url_for('categorias'))
+
+@app.route('/empresas/empresaPagina/menu')
+def menu():
+    ids=str(session['user_id'][0])
+    productos=empresasModels.listarProductos(ids)
+    return render_template('productos/listarProductos.html', productos=productos)
+
+
+@app.route('/empresas/empresaPagina/menu/agregarProducto', methods=['GET', 'POST'])
+def crearProducto():
+    if request.method == 'GET':
+        id= str(session['user_id'][0])
+        estado= empresasModels.obtenerEstado()
+        categorias=empresasModels.listarCategoria(id)
+        return render_template('productos/crearProducto.html', categorias=categorias, estado=estado)
+    idEmpresa= str(session['user_id'][0])
+    nombre= request.form.get('name').upper()
+    precio = request.form.get('price')
+    categoria= request.form.get('category')
+    disponibilidad= request.form.get('avaliability')
+    imagen = request.files['image']
+    try: 
+        img = empresaControllers.nombreImagen(imagen)
+        empresasModels.crearProducto(idEmpresa=idEmpresa, categoria=categoria, disponibilidad=disponibilidad, nombre=nombre, precio=precio,imagen='/static/resources/imagen_empresa/'+img)
+    except:
+        flash('No se ha podido guardar el producto', 'error')
+    imagen.save('./static/resources/imagen_empresa/'+str(img))
+    flash('Se ha creado el producto correctamente', 'success')
+    return redirect(url_for('menu'))
+    
+@app.route('/empresas/empresaPagina/menu/editarProducto/<string:id>', methods=['GET','POST'])
+def editarProducto(id):
+    if request.method == 'GET':
+        categorias=empresasModels.listarCategoria()
+        estado= empresasModels.obtenerEstado()
+        productos=empresasModels.editarProducto(id)
+        return render_template('/productos/editarProducto.html', producto = productos, estado = estado, categorias=categorias)
+
+    nombre= request.form.get('name').upper()
+    precio = request.form.get('price')
+    categoria= request.form.get('category')
+    disponibilidad= request.form.get('avaliability')
+    imagen = request.files['image']
+
+    try:
+        img = empresaControllers.nombreImagen(imagen)
+        imagenn='/static/resources/imagen_empresa/'+img
+        empresasModels.editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id)
+    except:
+        empresasModels.editarProductosCargar2(nombre, precio,id)
+        return redirect(url_for('menu'))
+    imagen.save('./static/resources/imagen_empresa/'+img)
+    flash('Se ha editado el producto correctamente', 'success')
+    return redirect(url_for('menu'))
+
+@app.route('/empresas/empresaPagina/menu/eliminar_producto/<string:id>')
+def eliminarProducto(id):
+    empresasModels.eliminarProducto(id)
+    return redirect(url_for('menu'))
 
 
 

@@ -1,0 +1,73 @@
+{% extends 'layouts/baseEmpresa.html' %}
+
+{% block title %}
+    PAGINA DE LA EMPRESA
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <main>
+        <a href="{{url_for('crearProducto')}}">
+            <button>+ Add menu item <span class="las la-arrow-right"></span></button>
+        </a>
+        {% with messages = get_flashed_messages(category_filter=['success']) %}
+        {% if messages %}
+        <div class="alert" role="alert" style="text-align: left;color: green; padding: 0rem; margin-top:.3rem;font-size: 10px;">
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+          <img style="width: 20px" src="https://img.icons8.com/color/48/000000/checked--v1.png"/></div>
+        {% endif %}
+        {% endwith %}
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(255, 255, 255);">
+                        <h3 style="color:rgb(138, 138, 138)">Products list</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table width="100%">
+                                <thead>
+                                    <tr style="background: #b6b6b64a;">
+                                        <td>ID</td>
+                                        <td>Image</td>
+                                        <td>Name</td>
+                                        <td>Category</td>
+                                        <td>Price</td>
+                                        <td>Avaliable?</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for producto in productos %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url_for('editarProducto', id=producto[0]) }}" style="text-decoration:none"><img style="width: 20px" src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-edit-interface-kiranshastry-gradient-kiranshastry.png"/></a>
+                                            {{ producto[0] }}</td>
+                                        <td>
+                                            <img src="{{ producto[1] }}" style="width: 40px;">
+                                        </td>
+                                        <td>{{ producto[2] }}</td>
+                                        <td>{{ producto[3] }}</td>
+                                        <td>${{ producto[4] }}</td>
+                                        <td>
+                                            <span class="status green"></span>
+                                            {{ producto[5] }}
+                                        </td>
+                                        <td> 
+                                            <a href="{{ url_for('eliminarProducto', id= producto[0]) }}">
+                                                <img src="https://img.icons8.com/color/48/000000/trash--v1.png" style="width:30px;"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/baseEmpresa.html' %}
+
+{% block title %}
+    PAGINA DE LA EMPRESA
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <main>
+        <div class="center">
+            <form action="{{ url_for('crearCategoria') }}" method="POST">
+                <h2 style="width: 28%; padding-top: 2rem">Add Category</h2>
+                <div class="txt_field">
+                    <input type="text" required id="nombreCategoria" name="nombreCategoria">
+                    <span></span>
+                    <label>Name Category</label>
+                </div>
+                {% with messages = get_flashed_messages(category_filter=['error']) %}
+                {% if messages %}
+                  <div class="alert" role="alert" style="text-align: left; color: red; font-size: 14px;">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+                {% endwith %}
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </main>
+</div>
+
+{% endblock %}

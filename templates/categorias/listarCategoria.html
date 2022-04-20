@@ -1,0 +1,58 @@
+{% extends 'layouts/baseEmpresa.html' %}
+
+{% block title %}
+    PAGINA DE LA EMPRESA
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <main>
+        <a href="{{url_for('crearCategoria')}}">
+            <button>+ Add Category <span class="las la-arrow-right"></span></button>
+        </a>
+        {% with messages = get_flashed_messages(category_filter=['success']) %}
+        {% if messages %}
+        <div class="alert" role="alert" style="text-align: left;color: green; padding: 0rem; margin-top:.3rem;font-size: 10px;">
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+          <img style="width: 20px" src="https://img.icons8.com/color/48/000000/checked--v1.png"/></div>
+        {% endif %}
+        {% endwith %}
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header" style="background-color: rgb(255, 255, 255);">
+                        <h3 style="color:rgb(138, 138, 138)">Category list</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table width="100%">
+                                <thead>
+                                    <tr style="background: #b6b6b64a;">
+                                        <td>ID</td>
+                                        <td>Name</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for categoria in categorias %}
+                                    <tr>
+                                        <td>{{ categoria[0] }}</td>
+                                        <td>{{ categoria[2] }}</td>
+                                        <td> 
+                                            <a class="btn" href="{{ url_for('eliminarCategoria', id= categoria[0]) }}">
+                                                <img src="https://img.icons8.com/color/48/000000/trash--v1.png" style="width:30px;"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+</div>
+{% endblock %}

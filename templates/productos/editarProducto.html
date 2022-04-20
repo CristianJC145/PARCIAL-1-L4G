@@ -1,0 +1,55 @@
+{% extends 'layouts/baseEmpresa.html' %}
+
+{% block title %}
+    PAGINA DE LA EMPRESA
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <main>
+        <div class="center">
+            <form action="{{ url_for('editarProducto', id=producto[0]) }}" enctype="multipart/form-data" method='POST'>
+              <h2>Edit Item</h2>
+                <div class="txt_field">
+                  <input type="text" id="name" name="name" value="{{ producto[2]}}">
+                  <span></span>
+                  <label>Name</label>
+                </div>
+                <div class="txt_field">
+                  <input type="text" id="price" name="price" value="{{ producto[4]}}">
+                  <span></span>
+                  <label>Price</label>
+                </div>
+                <div class="txt_field">
+                  <label style="top: -5px; color: #2691d9;">Category</label>
+                  <select class="" aria-label=".form-select-lg example" id="category" name="category">
+                      <option selected>{{producto[3]}}</option>
+                    {% for categoria in categorias %}
+                       <option value="{{categoria[0]}}">{{categoria[1]}}</option>
+                    {% endfor %}
+                  </select>
+                  <label></label>
+                </div>
+                <div class="txt_field">
+                <label style="top: -5px; color: #2691d9;">Avaliability</label>
+                  <select class="" aria-label=".form-select-lg example" id="avaliability" name="avaliability">
+                      <option selected>{{producto[5]}}</option>
+                    {% for est in estado %}
+                       <option value="{{est[0]}}">{{est[1]}}</option>
+                    {% endfor %}
+                  </select>
+                  <label></label>
+                </div>
+                <div class="txt_field">
+                  <label style="top: -12px; color: #2691d9;">Image</label>
+                  <input type="file" id="image" name="image" value="">
+                  <span></span>
+                  <label></label>
+                </div>
+                <input type="submit" value="submit">
+            </form>
+          </div>
+    </main>
+</div>
+
+{% endblock %}
