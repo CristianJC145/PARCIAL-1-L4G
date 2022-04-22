@@ -1,3 +1,4 @@
+from unicodedata import digit, numeric
 from config.database import db
 def obtenerEmail0(email):
     cursor = db.cursor()
@@ -131,12 +132,23 @@ def editarProducto(id):
     return editarProducto
 
 def editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn,id):
-
+    categoria_sql=''
+    disponibilidad_sql=''
+    a=" nombre_producto = '"+nombre+"', precio = '"+precio+"', imagen= '"+imagenn+"' WHERE id_producto = '"+id+"'"
+    #imagen_sql=''
+    #if imagenn is None:
+     #   a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
+    #else:
+       # imagen_sql=", imagen= '"+imagenn+"'"
+       # a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'," + imagen_sql + "WHERE id_producto = '"+id+"'"
     cursor = db.cursor()
-    cursor.execute("UPDATE producto SET id_categoria = '"+categoria+"', id_estado = '"+disponibilidad+"', nombre_producto = '"+nombre+"', precio = '"+precio+"', imagen= '"+imagenn+"' WHERE id_producto = '"+id+"'")
-    db.commit()
-
-def editarProductosCargar2(nombre, precio,id):
-    cursor = db.cursor()
-    cursor.execute("UPDATE producto SET nombre_producto = '"+nombre+"', precio = '"+precio+"' WHERE id_producto = '"+id+"'")
+    if disponibilidad is not None and categoria is not None:
+        disponibilidad_sql = " id_estado = '"+disponibilidad+"',"
+        categoria_sql= " id_categoria = '"+categoria+"',"
+    elif disponibilidad is not None and categoria is None:
+        disponibilidad_sql = " id_estado = '"+disponibilidad+"',"
+    if categoria is not None:
+        categoria_sql= " id_categoria = '"+categoria+"',"
+    
+    cursor.execute("UPDATE producto SET " + categoria_sql + disponibilidad_sql + a)
     db.commit()

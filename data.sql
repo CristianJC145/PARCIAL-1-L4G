@@ -16,6 +16,19 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`carta_virtual` /*!40100 DEFAULT CHARACT
 
 USE `carta_virtual`;
 
+/*Table structure for table `categoria` */
+
+DROP TABLE IF EXISTS `categoria`;
+
+CREATE TABLE `categoria` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empresa_id` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+/*Data for the table `categoria` */
+
 /*Table structure for table `consumidor` */
 
 DROP TABLE IF EXISTS `consumidor`;
@@ -56,12 +69,33 @@ CREATE TABLE `empresa` (
   `contacto` varchar(15) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contraseña` varchar(50) NOT NULL,
+  `contraseña` varchar(300) NOT NULL,
   `descripcion` text DEFAULT NULL,
+  `estado` varchar(1) NOT NULL,
+  `emailbienvenida` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
 /*Data for the table `empresa` */
+
+insert  into `empresa`(`id_empresa`,`imagen`,`nombre_empresa`,`contacto`,`direccion`,`email`,`contraseña`,`descripcion`,`estado`,`emailbienvenida`) values 
+(119,'/static/resources/imagen_empresa/2022-04-2032219KFC_new_logo-800x720.png','KFC','3124799099','calle 11 b # 4-45','cristianjamioy2020@itp.edu.co','48a1a026d78327f4325510acb066f5cdc5376df6','Venta de comida rapida y platos corrientes','1','0');
+
+/*Table structure for table `estado` */
+
+DROP TABLE IF EXISTS `estado`;
+
+CREATE TABLE `estado` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `estado` */
+
+insert  into `estado`(`id`,`estado`) values 
+(1,'AVALIABLE'),
+(2,'NOT AVALIABLE');
 
 /*Table structure for table `pedido` */
 
@@ -101,12 +135,20 @@ DROP TABLE IF EXISTS `producto`;
 
 CREATE TABLE `producto` (
   `id_producto` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `id_estado` int(11) NOT NULL,
   `nombre_producto` varchar(50) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
   `precio` varchar(10) NOT NULL,
-  `estado` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `imagen` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_producto`),
+  KEY `id_empresa` (`id_empresa`),
+  KEY `id_categoria` (`id_categoria`),
+  KEY `id_estado` (`id_estado`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`),
+  CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
+  CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 /*Data for the table `producto` */
 

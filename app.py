@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
-from models import empresasModels, validarDatos, autenticacionCorreo
-from controllers import empresaControllers
+from models import empresasModels
+from controllers import autenticacionCorreo, empresaControllers, validarDatos
 
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
@@ -224,7 +224,8 @@ def crearProducto():
 @app.route('/empresas/empresaPagina/menu/editarProducto/<string:id>', methods=['GET','POST'])
 def editarProducto(id):
     if request.method == 'GET':
-        categorias=empresasModels.listarCategoria()
+        ids=str(session['user_id'][0])
+        categorias=empresasModels.listarCategoria(ids)
         estado= empresasModels.obtenerEstado()
         productos=empresasModels.editarProducto(id)
         return render_template('/productos/editarProducto.html', producto = productos, estado = estado, categorias=categorias)
@@ -234,18 +235,23 @@ def editarProducto(id):
     categoria= request.form.get('category')
     disponibilidad= request.form.get('avaliability')
     imagen = request.files['image']
-
+    
+    if not categoria.isdigit():
+        categoria = None
+    if not disponibilidad.isdigit():
+        disponibilidad = None
+        
     try:
         img = empresaControllers.nombreImagen(imagen)
         imagenn='/static/resources/imagen_empresa/'+img
         empresasModels.editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id)
+        flash('Se ha editado el producto correctamente', 'success')
     except:
-        empresasModels.editarProductosCargar2(nombre, precio,id)
+        flash('No se ha podido editado el producto ', 'error')
         return redirect(url_for('menu'))
     imagen.save('./static/resources/imagen_empresa/'+img)
-    flash('Se ha editado el producto correctamente', 'success')
     return redirect(url_for('menu'))
-
+ 
 @app.route('/empresas/empresaPagina/menu/eliminar_producto/<string:id>')
 def eliminarProducto(id):
     empresasModels.eliminarProducto(id)
