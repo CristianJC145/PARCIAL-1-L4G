@@ -18,11 +18,16 @@
             <form autocomplete="on" id="login-form" class="form" action="{{ url_for('login') }}" method="POST">
                 <div class="inputBx">
                     <span>Email</span>
-                    <input type="text" name="email" id="email" class="form-control" value="{{ email }}">
+                    <input type="text" name="email" id="email" class="form-control" value="{{ email }}" placeholder="email">
                 </div>
                 <div class="inputBx">
-                    <span>Password</span>
-                    <input type="password" name="password" id="password" class="form-control">
+                    <div>
+                        <span>Password</span>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="password">    
+                    </div>
+                    <div class="img-eye">
+                        <img src="/static/resources/Show.png" alt="" class="icon" id="Eye">
+                    </div>
                 </div>
                 <div class="remember">
                     <label for="">
@@ -68,9 +73,10 @@
             </ul>
         </div>
         <a href="{{ url_for('index') }}">
-            <img src="static/resources/preloader_logo2.png" alt="" class="img_home">
+            <img src="static/resources/preloader_logo2.png" alt="" class="img_home" >
         </a>
     </div>
     </section>
+    <script src="/static/code.js"></script>
 </body>
 </html>

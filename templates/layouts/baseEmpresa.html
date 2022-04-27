@@ -21,15 +21,15 @@
         <div class="sidebar-menu">
             <ul>
                 <li class="">
-                    <a href="{{ url_for('home') }}" class="list"><span class="las la-home"></span>
+                    <a href="{{ url_for('home') }}" class="list {{ 'active' if request.path == url_for('home') else ''}}"><span class="las la-home"></span>
                     <span>Home</span></a>
                 </li>
                 <li class="">
-                    <a href="{{ url_for('categorias') }}" class="list"><span class="las la-hamburger"></span>
+                    <a href="{{ url_for('categorias') }}" class="list {{ 'active' if request.path == url_for('categorias') else ''}}"><span class="las la-hamburger"></span>
                     <span>Categories</span></a>
                 </li>
                 <li class="">
-                    <a href="{{ url_for('menu') }}" class="list"><span class="las la-utensils"></span>
+                    <a href="{{ url_for('menu') }}" class="list {{ 'active' if request.path == url_for('menu') else ''}}"><span class="las la-utensils"></span>
                     <span>Menu</span></a>
                 </li>
                 <li class="">
@@ -41,7 +41,7 @@
                     <span>Curtomers</span></a>
                 </li>
                 <li class="">
-                    <a href="#" class="list"><span class="las la-user-cog"></span>
+                    <a href="{{url_for('editarEmpresa')}}" class="list"><span class="las la-user-cog"></span>
                     <span>Settings</span></a>
                 </li>
                 <li class="">
@@ -67,27 +67,26 @@
                 <img src="" alt="" width="40px" height="40px">
                 <div>
                     <h5><div class="main-content">
-        <header>
-            <h2>
-                <label for="nav-toogle">
-                    <span class="las la-bars"></span>
-                </label>
-                HOME
-            </h2>
-            <div class="search-wrapper">
-                <span class="las la-search"></span>
-                <input type="search" placeholder="Search">
-            </div>
-            <div class="user-wrapper">
-                <img src="{{(session['user_id'][1])}}" alt="" width="40px" height="40px">
-                <div>
-                    <h5>{{(session['user_id'][2])}}</h5>
-                    <small>Super admin</small>
-                </div>
-            </div>
-        </header>
-    </div></h5>
-                    <small>Super admin</small>
+                        <header>
+                            <h2>
+                                <label for="nav-toogle">
+                                    <span class="las la-bars"></span>
+                                </label>
+                                HOME
+                            </h2>
+                            <div class="search-wrapper">
+                                <span class="las la-search"></span>
+                                <input type="search" placeholder="Search">
+                            </div>
+                            <div class="user-wrapper">
+                                <img src="{{(session['user_id'][1])}}" alt="" width="40px" height="40px">
+                                <div>
+                                    <h5>{{(session['user_id'][2])}}</h5>
+                                    <small>Super admin</small>
+                                </div>
+                            </div>
+                        </header>
+                    </div></h5>
                 </div>
             </div>
         </header>

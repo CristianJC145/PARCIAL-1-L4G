@@ -268,10 +268,10 @@ tr td:last-child{
     display: flex;
     align-items: center;
 }
-.status.green{
+.status.AVALIABLE{
     background: greenyellow;
 }
-.status.red{
+.status.NOT.AVALIABLE{
     background: red;
 }
 .table-responsive{

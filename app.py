@@ -159,6 +159,11 @@ def home():
 
     return render_template('empresas/home.html')
 
+@app.route('/empresas/empresaPagina/editar')
+def editarEmpresa():
+
+    return render_template('empresas/editarEmpresa.html')
+
 @app.route('/empresas/empresaPagina/categorias')
 def categorias():
     id=empresaControllers.obtenerId(session)
@@ -167,7 +172,10 @@ def categorias():
 
 @app.route('/empresas/empresaPagina/categorias/eliminar/<string:id>')
 def eliminarCategoria(id):
-    empresasModels.eliminarCategoria(id)
+    if empresasModels.verificarCategoriaProducto(id):
+        flash("No puedes eliminar esta categoria", 'error')
+    else:
+        empresasModels.eliminarCategoria(id)
     return redirect(url_for('categorias'))
 
           
@@ -240,21 +248,26 @@ def editarProducto(id):
         categoria = None
     if not disponibilidad.isdigit():
         disponibilidad = None
-        
+    if imagen:
+            img = empresaControllers.nombreImagen(imagen)
+            imagenn='/static/resources/imagen_empresa/'+img
+            imagen.save('./static/resources/imagen_empresa/'+img)
+    else:
+        imagenn = None  
+
     try:
-        img = empresaControllers.nombreImagen(imagen)
-        imagenn='/static/resources/imagen_empresa/'+img
         empresasModels.editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id)
         flash('Se ha editado el producto correctamente', 'success')
     except:
         flash('No se ha podido editado el producto ', 'error')
         return redirect(url_for('menu'))
-    imagen.save('./static/resources/imagen_empresa/'+img)
     return redirect(url_for('menu'))
+
  
 @app.route('/empresas/empresaPagina/menu/eliminar_producto/<string:id>')
 def eliminarProducto(id):
     empresasModels.eliminarProducto(id)
+    
     return redirect(url_for('menu'))
 
 

@@ -134,13 +134,12 @@ def editarProducto(id):
 def editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn,id):
     categoria_sql=''
     disponibilidad_sql=''
-    a=" nombre_producto = '"+nombre+"', precio = '"+precio+"', imagen= '"+imagenn+"' WHERE id_producto = '"+id+"'"
-    #imagen_sql=''
-    #if imagenn is None:
-     #   a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
-    #else:
-       # imagen_sql=", imagen= '"+imagenn+"'"
-       # a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'," + imagen_sql + "WHERE id_producto = '"+id+"'"
+    imagen_sql=''
+    if imagenn:
+        imagen_sql=", imagen= '"+imagenn+"'"
+        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
+    elif imagenn is None:
+        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
     cursor = db.cursor()
     if disponibilidad is not None and categoria is not None:
         disponibilidad_sql = " id_estado = '"+disponibilidad+"',"
@@ -152,3 +151,8 @@ def editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn,id)
     
     cursor.execute("UPDATE producto SET " + categoria_sql + disponibilidad_sql + a)
     db.commit()
+def verificarCategoriaProducto(id):
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM producto WHERE id_categoria = '"+id+"'")
+    producto = cursor.fetchall()
+    return producto

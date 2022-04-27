@@ -105,3 +105,57 @@ input[type="submit"]:hover{
 .signup_link a:hover{
   text-decoration: underline;
 }
+.tools-content{
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+.setting-tools-content{
+  margin: 20px -2px;
+}
+.stt-tools-item input{
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+.stt-tools-item{
+  margin: 30px;
+  position: relative;
+  border-bottom: 2px solid #adadad;
+}
+.stt-tools-item label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+  color: #adadad;
+}
+
+.stt-tools-item span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+}
+
+.stt-tools-item input:focus ~ label,
+.stt-tools-item input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+}
+
+.stt-tools-item input:focus ~ span::before,
+.stt-tools-item input:valid ~ span::before{
+  width: 100%;
+}

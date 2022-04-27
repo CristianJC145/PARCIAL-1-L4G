@@ -1,0 +1,56 @@
+{% extends 'layouts/baseEmpresa.html' %}
+
+{% block title %}
+    PAGINA DE LA EMPRESA
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <main>
+        <div class="conten-header" style="border-bottom: 1.4px solid #6d6d6d;">
+            <h5 style="padding: 0 0 20px">Configuracion de la cuenta</h5>
+        </div>
+        <div class="tools-content">
+            <div class="user-wrapper">
+                <img src="{{(session['user_id'][1])}}" alt="" width="120px" height="120px">
+                <div>
+                    <h1>{{(session['user_id'][2])}}</h1>
+                    <small>{{(session['user_id'][5])}}</small>
+                </div>
+            </div>
+            <div class="setting-tools-content">
+                <div class="stt-tools-item">
+                    <input type="text" id="name" name="name" value="">
+                    <span></span>
+                    <label>Name</label>
+                </div>
+                <div class="stt-tools-item">
+                    <input type="number" id="phone" name="phone" value="">
+                    <span></span>
+                    <label>Phone</label>
+                </div>
+                <div class="stt-tools-item">
+                    <input type="text" id="address" name="address" value="">
+                    <span></span>
+                    <label>Addres</label>
+                </div>
+                <div class="stt-tools-item">
+                    <input type="text" id="description" name="description" value="">
+                    <span></span>
+                    <label>Descripcion</label>
+                </div>
+                <div class="stt-tools-item">
+                    <input type="password" id="password" name="password" value="">
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <div class="stt-tools-item">
+                    <li>
+                        <input type="text">
+                    </li>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
