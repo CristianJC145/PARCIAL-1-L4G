@@ -11,8 +11,14 @@
             <h5 style="padding: 0 0 20px">Configuracion de la cuenta</h5>
         </div>
         <div class="tools-content">
-            <div class="user-wrapper">
-                <img src="{{(session['user_id'][1])}}" alt="" width="120px" height="120px">
+            <div class="user-wrapper" style="padding: 20px 20px 0;">
+                <div class="user-wrapper-img">
+                    <img src="{{(session['user_id'][1])}}" alt="" width="120px" height="120px">
+                    <div class="user-wrapper-img-edit">
+                        <label for="img"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/camera--v1.png" alt=""></label>
+                        <input type="file" name="img" id="img">
+                    </div>
+                </div>
                 <div>
                     <h1>{{(session['user_id'][2])}}</h1>
                     <small>{{(session['user_id'][5])}}</small>
@@ -20,36 +26,32 @@
             </div>
             <div class="setting-tools-content">
                 <div class="stt-tools-item">
-                    <input type="text" id="name" name="name" value="">
+                    <input type="text" id="name" name="name" value="{{(session['user_id'][2])}}">
                     <span></span>
                     <label>Name</label>
                 </div>
                 <div class="stt-tools-item">
-                    <input type="number" id="phone" name="phone" value="">
+                    <input type="number" id="phone" name="phone" value="{{(session['user_id'][3])}}">
                     <span></span>
                     <label>Phone</label>
                 </div>
                 <div class="stt-tools-item">
-                    <input type="text" id="address" name="address" value="">
+                    <input type="text" id="address" name="address" value="{{(session['user_id'][4])}}">
                     <span></span>
                     <label>Addres</label>
                 </div>
                 <div class="stt-tools-item">
-                    <input type="text" id="description" name="description" value="">
+                    <input type="text" id="description" name="description" value="{{(session['user_id'][7])}}">
                     <span></span>
                     <label>Descripcion</label>
                 </div>
                 <div class="stt-tools-item">
                     <input type="password" id="password" name="password" value="">
                     <span></span>
-                    <label>Password</label>
-                </div>
-                <div class="stt-tools-item">
-                    <li>
-                        <input type="text">
-                    </li>
+                    <label>Changue Password</label>
                 </div>
             </div>
+            <input type="submit" value="submit" style="margin-left: 25px">
         </div>
     </main>
 </div>
