@@ -1,6 +1,6 @@
 @import url('http://fonts.googleapis.com/css?family=Poppins:wght@200;300;400;500;600;700;800;900&display-swap');
 :root{
-    --main-color:#DD2F6E;
+    --main-color:#d10f0f; /*#d10f0f*/
     --color-dark:#1D2231;
     --text-grey:#8390A2;
 }
@@ -24,6 +24,17 @@
     background: var(--main-color);
     z-index: 100;
     transition: width 300ms;
+}
+.sidebar-imgif{
+    z-index:101;
+}
+.sidebar-imgif img{
+    position: absolute;
+    transform: translateY(-18%);
+    z-index: -1;
+    width: 109.4%;
+
+
 }
 
 .sidebar-brand{
@@ -78,6 +89,10 @@
 #nav-toogle:checked + .sidebar li{
     padding-left: 1rem;
     /*text-align: center;*/
+}
+#nav-toogle:checked + .sidebar .sidebar-menu img{
+    display: none;
+    width: 110%;
 }
 #nav-toogle:checked + .sidebar li a{
     padding-left: 1rem;

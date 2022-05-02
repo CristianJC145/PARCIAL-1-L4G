@@ -16,10 +16,13 @@
 <body>
     <input type="checkbox" id="nav-toogle">
     <div class="sidebar">
-        <div class="sidebar-brand">
+     <div class="sidebar-brand">
             <h2><img src="https://img.icons8.com/color/48/000000/kawaii-taco.png"/></span><span>FastFood</span></h2>
-        </div>
+        </div>  
         <div class="sidebar-menu">
+      <!--  <div class="sidebar-imgif">
+                <img src="/static/resources/View_27_Gif_Wallpapers_4K_Para_13.gif" alt="">
+            </div>-->
             <ul>
                 <li class="">
                     <a href="{{ url_for('home') }}" class="list {{ 'active' if request.path == url_for('home') else ''}}"><span class="las la-home"></span>
