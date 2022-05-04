@@ -149,11 +149,17 @@ input[type="submit"]:hover{
   transition: .5s;
 }
 
+
+@font-face {
+  font-family: Hello Valentica;
+  src: url(/static/fonts/HelloValentina.ttf);
+}
 .stt-tools-item input:focus ~ label,
 .stt-tools-item input:valid ~ label{
   top: -5px;
   color: #d92626;
-  font-family: cha;
+  font-family: Hello Valentica;
+  font-size: 26px;
 }
 
 .stt-tools-item input:focus ~ span::before,

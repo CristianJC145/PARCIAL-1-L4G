@@ -156,3 +156,5 @@ def verificarCategoriaProducto(id):
     cursor.execute("SELECT * FROM producto WHERE id_categoria = '"+id+"'")
     producto = cursor.fetchall()
     return producto
+#def editarEmpresa():
+    

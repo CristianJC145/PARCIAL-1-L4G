@@ -296,6 +296,13 @@ thead tr {
 thead td{
     font-weight: 700;
 }
+.img-product{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    /*Clip-path: inset(0px 0px 0px 0px);*/
+    border-radius: 50%;
+}
 td{
     padding: .5rem 1rem;
     font-size: .9rem;

@@ -159,9 +159,9 @@ def home():
 
     return render_template('empresas/home.html')
 
-@app.route('/empresas/empresaPagina/editar')
+@app.route('/empresas/empresaPagina/configuracion')
 def editarEmpresa():
-    empresa=empresasModels
+    empresa=empresasModels.editarEmpresa()
     return render_template('empresas/editarEmpresa.html', empresa=empresa)
 
 @app.route('/empresas/empresaPagina/categorias')
@@ -269,7 +269,6 @@ def eliminarProducto(id):
     empresasModels.eliminarProducto(id)
     
     return redirect(url_for('menu'))
-
 
 
 app.run(debug=True)
