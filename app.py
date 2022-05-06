@@ -161,8 +161,8 @@ def home():
 
 @app.route('/empresas/empresaPagina/configuracion')
 def editarEmpresa():
-    empresa=empresasModels.editarEmpresa()
-    return render_template('empresas/editarEmpresa.html', empresa=empresa)
+    #empresa=empresasModels.editarEmpresa()
+    return render_template('empresas/editarEmpresa.html')
 
 @app.route('/empresas/empresaPagina/categorias')
 def categorias():

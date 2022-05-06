@@ -1,57 +1,59 @@
-{% extends 'layouts/base.html' %} 
-{% block title %} 
-Crear empresa
-{% endblock %}
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Register </title>
+    <link rel="stylesheet" href="/static/css/register.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form action="{{ url_for('registrar_empresa') }}" enctype="multipart/form-data" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Name Of Your Company</span>
+            <input type="text" required placeholder="Enter your name company" id="nombre-empresa" name="nombre-empresa">
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="number" required id="contacto" name="contacto" value="{{ contacto }}" />
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="text" id="email" name="email"/>
+          </div>
+          <div class="input-box">
+            <span class="details">Address</span>
+            <input type="text" id="direccion" name="direccion" value="{{ direccion }}"/>
+          </div>
+          <div class="input-box">
+            <span class="details">Descripcion</span>
+            <input type="text" id="descripcion" name="descripcion" value="{{ descripcion }}"/>
+          </div>
+          <div class="input-box">
+            <label for="imagen">Imagen</label>
+            <input type="file" id="imagen" name="imagen" class="form-control" />
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" placeholder="Min 8 max 15 characteres" id="password" name="password" class="form-control" />
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" placeholder="Confirm your password" required>
+          </div>
+        </div>
+        
+        <div class="button">
+          <a href="{{ url_for('index') }}" class="btn">Volver</a>
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
 
-{% block content %}
-<div class="container">
-  <form action="{{ url_for('registrar_empresa') }}" enctype="multipart/form-data" method="POST">
-    <div class="title-page">
-      <h1>Crear Empresa</h1>
-    </div>
-  
-    <div class="form-group">
-      <label for="nombre-empresa">Nombre empresa</label>
-      <input type="text" 
-        required
-        id="nombre-empresa" name="nombre-empresa" class="form-control" />
-    </div>
-  
-    <div class="form-group">
-      <label for="contacto">contacto</label>
-      <input type="number" required id="contacto" name="contacto" class="form-control" value="{{ contacto }}" />
-      
-    </div>
-  
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" class="form-control" />
-    </div>
-  
-    <div class="form-group">
-      <label for="direccion">Direccion</label>
-      <input type="text" id="direccion" name="direccion" class="form-control" value="{{ direccion }}"/>
-    </div>
-  
-    <div class="form-group">
-      <label for="descripcion">Descripcion</label>
-      <input type="text" id="descripcion" name="descripcion" class="form-control" value="{{ descripcion }}"/>
-    </div>
-  
-    <div class="form-group">
-      <label for="imagen">Imagen</label>
-      <input type="file" id="imagen" name="imagen" class="form-control" />
-    </div>
-    
-    <div class="form-group">
-      <label for="password">Contraseña</label>
-      <input type="password" placeholder="Minimo 8 y maximo 15 caracteres" id="password" name="password" class="form-control" />
-    </div>
-    <div class="footer-page">
-      <a href="{{ url_for('index') }}" class="btn">Volver</a>
-      <button type="submit" class="btn btn-success">Guardar</button>
-    </div>
-  </form>
-</div>
-{% endblock %}
-
+</body>
+</html>

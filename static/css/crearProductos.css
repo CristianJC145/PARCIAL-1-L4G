@@ -126,6 +126,15 @@ input[type="submit"]:hover{
   position: relative;
   border-bottom: 2px solid #adadad;
 }
+.stt-tools-item button{
+  position: absolute; 
+  right: 0; 
+  top: -10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center; 
+  width: 10%
+}
 .stt-tools-item label{
   position: absolute;
   top: 50%;
