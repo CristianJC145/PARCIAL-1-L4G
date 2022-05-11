@@ -270,5 +270,11 @@ def eliminarProducto(id):
     
     return redirect(url_for('menu'))
 
+@app.route('/productos_empresas')
+def cartavirtual():
+    empresasModels.eliminarProducto(id)
+    
+    return redirect(url_for('menu'))
+
 
 app.run(debug=True)
