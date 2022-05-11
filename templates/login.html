@@ -15,15 +15,23 @@
     <div class="contentBx">
         <div class="formBx">
             <h2>Login</h2>
+            
+            
+
             <form autocomplete="on" id="login-form" class="form" action="{{ url_for('login') }}" method="POST">
+                {{form.csrf_token}}
                 <div class="inputBx">
-                    <span>Email</span>
-                    <input type="text" name="email" id="email" class="form-control" value="{{ email }}" placeholder="email">
+                    {{form.email.label}}
+                    {{form.email(class_="form-control", placeholder_="email")}}
+                    {% for error in form.email.errors %}
+                    <span>{{error}}</span>
+                    {%endfor%}
                 </div>
                 <div class="inputBx">
                     <div>
-                        <span>Password</span>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="password">    
+                        {{form.password.label}}
+                        {{form.password(class_="form-control", placeholder_="password")}}
+   
                     </div>
                     <div class="img-eye">
                         <img src="/static/resources/Show.png" alt="" class="icon" id="Eye">
