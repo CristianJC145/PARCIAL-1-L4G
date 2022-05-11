@@ -3,7 +3,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
 from models import empresasModels
 from controllers import autenticacionCorreo, empresaControllers, validarDatos
-
+from controllers.forms import LoginForm
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
 s = URLSafeTimedSerializer('Thisisasecret!')
@@ -77,34 +77,34 @@ def registrar_empresa():
 @app.route('/login', methods=['GET', 'POST']) 
 
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    is_valid=True
-    email = request.form.get('email')
-    password = request.form.get('password')
-    password_e = hashlib.sha1(password.encode()).hexdigest()
-    #empresasModels.delete_regiters(email)
-    if (email == "" or password == ""):
-        flash('campos requeridos', 'error')
-        return redirect(request.url)
-    email1 = empresasModels.obtenerEmail0(email)
-    email2 = empresasModels.obtenerEmail2(email)
-    password_e = empresasModels.obtenerContraseña(password_e)
-    if email1 is None:
-        flash('Correo no registrado', 'error')
-        return redirect(request.url)
-    if email2 is None:
-        flash('Cuenta no verificada, revisa tu buzon', 'error')
-        is_valid=False
-    if email2 is not None and password_e is None:
-        flash('contraseña incorrecta, intente de nuevo', 'error')
-        is_valid=False
-    if is_valid==False:
-        return render_template("login.html",
-        email=email,)
+    form = LoginForm()
+    if form.validate_on_submit():
+        is_valid=True
+        email =form.email.data
+        password = form.password.data
+        password_e = hashlib.sha1(password.encode()).hexdigest()
+        #empresasModels.delete_regiters(email)
+        email1 = empresasModels.obtenerEmail0(email)
+        email2 = empresasModels.obtenerEmail2(email)
+        password_e = empresasModels.obtenerContraseña(password_e)
 
-    session['user_id'] = email2
-    return redirect(url_for('home'))
+        if email1 is None:
+            flash('Correo no registrado', 'error')
+            return redirect(request.url)
+        if email2 is None:
+            flash('Cuenta no verificada, revisa tu buzon', 'error')
+            is_valid=False
+        if email2 is not None and password_e is None:
+            flash('contraseña incorrecta, intente de nuevo', 'error')
+            is_valid=False
+
+        if is_valid==False:
+            return render_template("login.html",
+            form=form)
+
+        session['user_id'] = email2
+        return redirect(url_for('home'))
+    return render_template('login.html', form=form)
 
 @app.route('/logout') 
 def logout():
