@@ -61,35 +61,10 @@
                 <span class="las la-search"></span>
                 <input type="search" placeholder="Search">
             </div>
-            <div class="user-wrapper">
-                <img src="" alt="" width="40px" height="40px">
-                <div>
-                    <h5><div class="main-content">
-                        <header>
-                            <h2>
-                                <label for="nav-toogle">
-                                    <span class="las la-bars"></span>
-                                </label>
-                                HOME
-                            </h2>
-                            <div class="search-wrapper">
-                                <span class="las la-search"></span>
-                                <input type="search" placeholder="Search">
-                            </div>
-                            <div class="user-wrapper">
-                                <img src="{{(session['user_id'][1])}}" alt="" width="40px" height="40px">
-                                <div>
-                                    <h5>{{(session['user_id'][2])}}</h5>
-                                    <small>Super admin</small>
-                                </div>
-                            </div>
-                        </header>
-                    </div></h5>
-                </div>
-            </div>
         </header>
     </div>
     <script src="/static/js/empresa2.js"></script>
+    
     {% block content %}{% endblock %}
 </body>
 </html>

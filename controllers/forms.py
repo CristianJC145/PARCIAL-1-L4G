@@ -1,3 +1,5 @@
+from unicodedata import numeric
+from wsgiref.validate import validator
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, PasswordField
 from wtforms.validators import DataRequired, Email
@@ -17,4 +19,10 @@ class LoginForm(FlaskForm):
     email = StringField('Email' , 
                         validators=[DataRequired(), Email()], id="email")
     password = PasswordField('Password', validators=[DataRequired()], id="password")
-    
+
+class EditUser(FlaskForm):
+    name = StringField('Name', id="name")
+    phone = StringField('Phone', id="phone")
+    address = StringField('Address', id="address")
+    description = StringField('Description', id="description")
+    submit = SubmitField('Save')

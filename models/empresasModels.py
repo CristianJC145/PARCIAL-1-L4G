@@ -156,5 +156,19 @@ def verificarCategoriaProducto(id):
     cursor.execute("SELECT * FROM producto WHERE id_categoria = '"+id+"'")
     producto = cursor.fetchall()
     return producto
-#def editarEmpresa():
+def listarTodosProductos():
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM producto")
+    productos = cursor.fetchall()
+    return productos
+def editarEmpresa(imagenn,name,phone,address,password,description):
+    imagen_sql=''
+    password_sql=''
+    if password:
+        password_sql=" contraseña= '"+password+"', "
+    if imagenn:
+        imagen_sql=" imagen= '"+imagenn+"', "
+    cursor = db.cursor()
+    cursor.execute("UPDATE empresa set "+imagen_sql + " nombre_empresa = '"+name+"', contacto = '"+phone+"', direccion = '"+address+"', "+password_sql + "descripcion = '"+description+"'")
+    db.commit()
     

@@ -1,60 +1,109 @@
 {% extends 'layouts/baseEmpresa.html' %}
 
 {% block title %}
-    PAGINA DE LA EMPRESA
+Configuration
 {% endblock %}
 
 {% block content %}
 <div class="main-content">
+    <header>
+        <div class="user-wrapper">
+            <img src="" alt="" width="40px" height="40px">
+            <div>
+                <h5><div class="main-content">
+                    <header>
+                        <h2>
+                            <label for="nav-toogle">
+                                <span class="las la-bars"></span>
+                            </label>
+                            SETTINGS
+                        </h2>
+                        <div class="search-wrapper">
+                            <span class="las la-search"></span>
+                            <input type="search" placeholder="Search">
+                        </div>
+                        <div class="user-wrapper">
+                            <img src="{{(datos[1])}}" alt="" width="40px" height="40px">
+                            <div>
+                                <h5>{{(datos[2])}}</h5>
+                                <small>Super admin</small>
+                            </div>
+                        </div>
+                    </header>
+                </div></h5>
+            </div>
+        </div>
+    </header>
     <main>
         <div class="conten-header" style="border-bottom: 1.4px solid #6d6d6d;">
             <h5 style="padding: 0 0 20px">Account Settings</h5>
         </div>
         <div class="tools-content">
-            <div class="user-wrapper" style="padding: 20px 20px 0;">
-                <div class="user-wrapper-img">
-                    <img src="{{(session['user_id'][1])}}" alt="" width="120px" height="120px">
-                    <div class="user-wrapper-img-edit">
-                        <label for="img"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/camera--v1.png" alt=""></label>
-                        <input type="file" name="img" id="img">
+            <form action="{{ url_for('editarEmpresa') }}" enctype="multipart/form-data" method='POST'>
+                <div class="user-wrapper" style="padding: 20px 20px 0;">
+                    <div class="user-wrapper-img">
+                        <img src="{{(datos[1])}}" alt="" width="120px" height="120px">
+                        <div class="user-wrapper-img-edit">
+                            <label for="img"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/camera--v1.png"
+                                    alt=""></label>
+                            <input type="file" name="img" id="img">
+                        </div>
+                    </div>
+                    <div>
+                        <h1>{{(session['user_id'][2])}}</h1>
+                        <small>{{(session['user_id'][5])}}</small>
                     </div>
                 </div>
-                <div>
-                    <h1>{{(session['user_id'][2])}}</h1>
-                    <small>{{(session['user_id'][5])}}</small>
+                {% with messages = get_flashed_messages(category_filter=['success']) %}
+                {% if messages %}
+                <div class="alert" role="alert" style="text-align: center; padding: 0.5rem 2rem ;color: green; font-size: 14px; border: 1.5px solid rgba(42, 38, 38, 0.078)">
+                  {% for message in messages %}
+                      {{ message }}
+                  {% endfor %}
+                  </div>
+                {% endif %}
+                {% endwith %}
+                <div class="setting-tools-content">
+
+                    <div class="stt-tools-item">
+                        <input type="text" id="name" name="name" value="{{(datos[2])}}">
+                        <span></span>
+                        <label>Name</label>
+                    </div>
+                    <div class="stt-tools-item">
+                        <input type="number" id="phone" name="phone" value="{{(datos[3])}}">
+                        <span></span>
+                        <label>Phone</label>
+                    </div>
+                    <div class="stt-tools-item">
+                        <input type="text" id="address" name="address" value="{{(datos[4])}}">
+                        <span></span>
+                        <label>Addres</label>
+                    </div>
+                    <div class="stt-tools-item">
+                        <input type="text" id="description" name="description" value="{{(datos[7])}}">
+                        <span></span>
+                        <label>Description</label>
+                    </div>
+                    <div class="stt-tools-item" id="stt-tools-item">
+                        <input type="text"  id="password" name="password" style="cursor: pointer; ">
+                        <!--<button type="button" onclick='document.getElementById("stt-tools-item").innerHTML="<input type=password name=password id=password/>"'>Editar</button> -->
+                        <span></span>
+                        <label>Changue Password
+                        </label>
+                        {% with messages = get_flashed_messages(category_filter=['error']) %}
+                        {% if messages %}
+                        <div class="alert" role="alert" style="text-align: center; padding: 0.5rem 2rem ;color: red; font-size: 14px; border: 1.5px solid rgba(42, 38, 38, 0.078)">
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
                 </div>
-            </div>
-            <div class="setting-tools-content">
-                <div class="stt-tools-item">
-                    <input type="text" id="name" name="name" value="{{(session['user_id'][2])}}">
-                    <span></span>
-                    <label>Name</label>
-                </div>
-                <div class="stt-tools-item">
-                    <input type="number" id="phone" name="phone" value="{{(session['user_id'][3])}}">
-                    <span></span>
-                    <label>Phone</label>
-                </div>
-                <div class="stt-tools-item">
-                    <input type="text" id="address" name="address" value="{{(session['user_id'][4])}}">
-                    <span></span>
-                    <label>Addres</label>
-                </div>
-                <div class="stt-tools-item">
-                    <input type="text" id="description" name="description" value="{{(session['user_id'][7])}}">
-                    <span></span>
-                    <label>Description</label>
-                </div>
-                <div class="stt-tools-item">
-                    <button type="button">Editar
-                    </button>
-                    <input type="text" readonly id="password" name="password" value="" style="cursor: pointer; ">
-                    <span></span>
-                    <label>Changue Password
-                    </label>
-                </div>
-            </div>
-            <input type="submit" value="submit" style="margin-left: 25px">
+                <input type="submit" value="submit" style="margin-left: 25px">
+            </form>
         </div>
     </main>
 </div>

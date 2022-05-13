@@ -1,0 +1,140 @@
+{% extends 'layouts/baseProductos.html' %}
+
+{% block title %}
+Pide tu comida a domicilio
+{% endblock %}
+
+{% block content %}
+    <!--Header-->
+    <input type="checkbox" id="cart">
+    <label for="cart" class="label-cart"><span class="fas fa-shopping-cart"></span></label>
+    <h3 class="logo">Food Delivery Services</h3>
+    <!--Siderbar-->
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <span class="fas fa-search"></span>
+            <a href="#">Search</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-home"></span>
+            <a href="{{url_for('index')}}">Home</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-heart"></span>
+            <a href="#">Favs</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-user"></span>
+            <a href="#">Profile</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-sliders-h"></span>
+            <a href="#">Settings</a>
+        </div>
+    </div>
+    <!--main dashborad-->
+    <div class="dashboard">
+        <div class="dashboard-banner">
+            <img src="/static/resources/646937.jpg.png">
+            <div class="banner-promo">
+                <h1><span>50% OFF</span><br>
+                    Tasty Food <br>On Your Hand</h1>
+            </div>
+        </div>
+        <h3 class="dashboard-title">Recommended Food For You</h3>
+        <div class="dashboard-menu">
+            <a href="#">Favorites</a>
+            <a href="#">Best Seller</a>
+            <a href="#">Near Me</a>
+            <a href="#">Promotion</a>
+            <a href="#">Top Rated</a>
+            <a href="#">All</a>
+        </div>
+        <div class="dashboard-content">
+            {% for producto in productos %}
+            <div class="dashboardcard" data-name="{{producto[0]}}">
+                <img class="card-image" src="{{producto[6]}}">
+                <div class="card-detail">
+                    <h4>{{producto[4]}}<span>${{producto[5]}}</span></h4>
+                    <p>Pizza hawaiana tamaño grande</p>
+                    <p class="card-time"><span class="fas fa-clock"></span> 15-30 mins</p>
+                </div>
+            </div> 
+            <div class="products-preview">
+                <div class="preview" data-target="{{producto[0]}}">
+                   <i class="fas fa-times"></i>
+                   <img src="{{producto[6]}}" alt="">
+                   <h3>{{producto[4]}}</h3>
+                   <div class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star-half-alt"></i>
+                      <span>( 250 )</span>
+                   </div>
+                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+                   <div class="price">${{producto[5]}}</div>
+                   <div class="buttons">
+                      <a href="#" class="buy">buy now</a>
+                      <a href="#" class="cart">add to cart</a>
+                   </div>
+                </div>
+             </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!--order dashboard-->
+    <div class="dashboard-order">
+        <h3>Order Menu</h3>
+        <div class="order-address">
+            <p>Address Delivery</p>
+            <h4>221 B Baker Street, london</h4>
+        </div>
+        <div class="order-time">
+            <span class="fas fa-clock"> </span>30 mins <span class="fas fa-map-marker-alt"></span>2 km
+        </div>
+
+        <div class="order-wrapper">
+            <div class="order-card">
+                <img class="order-image" src="img/tacos-mexicanos.jpg" alt="">
+                <div class="order-detail">
+                    <p>Lorem ipsum dolor sit amet</p>
+                    <i class="fa fa-times"></i><input type="text" value="1">
+                </div>
+                <h4 class="order-price">$35.000</h4>
+            </div>
+            <div class="order-card">
+                <img class="order-image" src="img/pizza-margarita-3684.jpg" alt="">
+                <div class="order-detail">
+                    <p>Lorem ipsum dolor sit amet</p>
+                    <i class="fa fa-times"></i><input type="text" value="2">
+                </div>
+                <h4 class="order-price">$25.000</h4>
+            </div>
+            <div class="order-card">
+                <img class="order-image" src="img/salchipapas.jpg" alt="">
+                <div class="order-detail">
+                    <p>Lorem ipsum dolor sit amet</p>
+                    <i class="fa fa-times"></i><input type="text" value="3">
+                </div>
+                <h4 class="order-price">$12.000</h4>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="order-total">
+            <p>subtotal <span>$126.000</span></p>
+            <p>Tax(10%) <span>$12.600</span></p>
+            <p>Delivery free <span>$3.000</span></p>
+            <div class="order-promo">
+                <input class="input-promo" type="text" placeholder="Apply Vouncher">
+                <button class="button-promo">Find Promo</button>
+            </div>
+            <hr class="divider">
+            <p>Total <span>$17.900</span></p>
+        </div>
+        <button class="checkout">
+            Checkout
+        </button>
+    </div>
+{% endblock %}

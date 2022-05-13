@@ -1,9 +1,10 @@
+from asyncio.windows_events import NULL
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
 from models import empresasModels
 from controllers import autenticacionCorreo, empresaControllers, validarDatos
-from controllers.forms import LoginForm
+from controllers.forms import LoginForm, EditUser
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
 s = URLSafeTimedSerializer('Thisisasecret!')
@@ -159,10 +160,43 @@ def home():
 
     return render_template('empresas/home.html')
 
-@app.route('/empresas/empresaPagina/configuracion')
+@app.route('/empresas/empresaPagina/configuracion', methods=['GET', 'POST'])
 def editarEmpresa():
-    #empresa=empresasModels.editarEmpresa()
-    return render_template('empresas/editarEmpresa.html')
+    if request.method == 'GET':
+            id=empresaControllers.obtenerId(session)
+            datos=empresasModels.obtenerEmpresa(id)
+            return render_template('empresas/editarEmpresa.html', datos=datos)
+    is_valid=True
+    imagen = request.files['img']
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    address = request.form.get('address')
+    description = request.form.get('description')
+    password = request.form.get('password')
+    if imagen:
+            img = empresaControllers.nombreImagen(imagen)
+            imagenn='/static/resources/imagen_empresa/'+img
+            imagen.save('./static/resources/imagen_empresa/'+img)
+    else:
+        imagenn = None
+    
+    if password:
+        if not (validarDatos.contraseñaValidacion(password)):
+            return redirect(request.url)
+        else:
+            password = hashlib.sha1(password.encode()).hexdigest()
+        
+    else:
+        password = None
+
+    try:
+        empresasModels.editarEmpresa(imagenn,name, phone, address, password, description)
+        flash('Se ha editado su usuario correctamente', 'success')
+    except:
+        flash('Error al editar el usuario ', 'error')
+        return redirect(url_for('editarEmpresa'))
+    return redirect(url_for('editarEmpresa'))
+
 
 @app.route('/empresas/empresaPagina/categorias')
 def categorias():
@@ -271,10 +305,8 @@ def eliminarProducto(id):
     return redirect(url_for('menu'))
 
 @app.route('/productos_empresas')
-def cartavirtual():
-    empresasModels.eliminarProducto(id)
-    
-    return redirect(url_for('menu'))
-
+def carta():
+    productos=empresasModels.listarTodosProductos()
+    return render_template('carta/index.html', productos=productos)
 
 app.run(debug=True)
