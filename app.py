@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from click import edit
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
@@ -165,7 +166,10 @@ def editarEmpresa():
     if request.method == 'GET':
             id=empresaControllers.obtenerId(session)
             datos=empresasModels.obtenerEmpresa(id)
-            return render_template('empresas/editarEmpresa.html', datos=datos)
+            form = EditUser(
+            name=datos[2]
+             ) 
+            return render_template('empresas/editarEmpresa.html', datos=datos, form=form)
     is_valid=True
     imagen = request.files['img']
     name = request.form.get('name')

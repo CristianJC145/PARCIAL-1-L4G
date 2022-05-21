@@ -366,6 +366,7 @@ p{
     font-size: .8rem;
     color:#444;
     border:.1rem solid #444;
+    text-decoration: none;
  }
  
  .products-preview .preview .buttons a.cart{

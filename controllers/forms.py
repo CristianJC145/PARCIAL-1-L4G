@@ -25,4 +25,5 @@ class EditUser(FlaskForm):
     phone = StringField('Phone', id="phone")
     address = StringField('Address', id="address")
     description = StringField('Description', id="description")
+    
     submit = SubmitField('Save')

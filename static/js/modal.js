@@ -1,22 +1,18 @@
-let preveiwContainer = document.querySelector('.products-preview');
-let previewBox = preveiwContainer.querySelectorAll('.preview');
 
-document.querySelectorAll('.dashboard-content .dashboardcard').forEach(dashboardcard =>{
-    dashboardcard.onclick = () =>{
+
+document.querySelectorAll('.dashboard-content .wrapper-dashboard').forEach(wrapper =>{
+  let dashboardcard=wrapper.querySelector('.dashboard-card')
+  let preveiwContainer=wrapper.querySelector('.products-preview')
+  let previewBox = preveiwContainer.querySelector('.preview')
+
+  dashboardcard.onclick = () =>{
     preveiwContainer.style.display = 'flex';
-    let name = dashboardcard.getAttribute('data-name');
-    previewBox.forEach(preview =>{
-      let target = preview.getAttribute('data-target');
-      if(name == target){
-        preview.classList.add('active');
-      }
-    });
+    previewBox.classList.add('active');
+  };
+
+  previewBox.querySelector('.fa-times').onclick = () =>{
+    preveiwContainer.style.display = 'none';
+    previewBox.classList.remove('active');
   };
 });
 
-previewBox.forEach(close =>{
-  close.querySelector('.fa-times').onclick = () =>{
-    close.classList.remove('active');
-    preveiwContainer.style.display = 'none';
-  };
-});
