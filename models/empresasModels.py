@@ -89,7 +89,7 @@ def eliminarCategoria(id):
         cursor = db.cursor()
         cursor.execute("delete from categoria where id = %s", (id,))
         db.commit()
-def crearProducto(idEmpresa, categoria, disponibilidad,  nombre, precio,imagen):
+def crearProducto(idEmpresa, categoria, disponibilidad,  nombre, precio,imagen, descripcion):
     cursor = db.cursor()
     cursor.execute("""insert into producto(
                 id_empresa,
@@ -97,9 +97,10 @@ def crearProducto(idEmpresa, categoria, disponibilidad,  nombre, precio,imagen):
                 id_estado,
                 nombre_producto,
                 precio,
-                imagen
-            )values (%s,%s,%s,%s,%s,%s)
-        """, (idEmpresa+"", categoria, disponibilidad, nombre, precio, imagen,))
+                imagen,
+                descripcion
+            )values (%s,%s,%s,%s,%s,%s,%s)
+        """, (idEmpresa+"", categoria, disponibilidad, nombre, precio, imagen,descripcion,))
     db.commit()
 def listarProductos(id):
     cursor = db.cursor()
@@ -122,7 +123,7 @@ def obtenerEstado():
     return estado
 def editarProducto(id):
     cursor = db.cursor()
-    cursor.execute("""SELECT `producto`.`id_producto`, `imagen`, `nombre_producto`, `categoria`.`nombre`, `precio`, `estado`.`estado`
+    cursor.execute("""SELECT `producto`.`id_producto`, `imagen`, `nombre_producto`, `categoria`.`nombre`, `precio`, `estado`.`estado`, `descripcion`
 	FROM `producto`
 	INNER JOIN `categoria` ON `producto`.`id_categoria` = `categoria`.`id`
 	INNER JOIN `estado`ON `producto`.`id_estado` = `estado`.`id`
@@ -131,15 +132,15 @@ def editarProducto(id):
     editarProducto=cursor.fetchone()
     return editarProducto
 
-def editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn,id):
+def editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id, descripcion):
     categoria_sql=''
     disponibilidad_sql=''
     imagen_sql=''
     if imagenn:
         imagen_sql=", imagen= '"+imagenn+"'"
-        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
+        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + ", descripcion = '"+descripcion+"' WHERE id_producto = '"+id+"'"
     elif imagenn is None:
-        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + "WHERE id_producto = '"+id+"'"
+        a = " nombre_producto = '"+nombre+"', precio = '"+precio+"'" + imagen_sql + ", descripcion = '"+descripcion+"' WHERE id_producto = '"+id+"'"
     cursor = db.cursor()
     if disponibilidad is not None and categoria is not None:
         disponibilidad_sql = " id_estado = '"+disponibilidad+"',"

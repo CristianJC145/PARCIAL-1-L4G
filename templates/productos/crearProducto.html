@@ -61,12 +61,17 @@ PAGINA DE LA EMPRESA
         </div>
         <div class="txt_field">
           <select class="" aria-label=".form-select-lg example" id="avaliability" name="avaliability">
-            <option selected>Availability</option>
+            <option value="{{estado[0][0]}}" selected>Availability</option>
             {% for est in estado %}
             <option value="{{est[0]}}">{{est[1]}}</option>
             {% endfor %}
           </select>
           <label></label>
+        </div>
+        <div class="txt_field">
+          <input type="text" required id="description" name="description">
+          <span></span>
+          <label>Description</label>
         </div>
         <div class="txt_field">
           <input type="file" required id="image" name="image">

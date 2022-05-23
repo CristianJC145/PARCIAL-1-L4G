@@ -57,13 +57,13 @@ Pide tu comida a domicilio
                     <img class="card-image" src="{{producto[6]}}">
                     <div class="card-detail">
                         <h4>{{producto[4]}}<span>${{producto[5]}}</span></h4>
-                        <p>Pizza hawaiana tamaño grande</p>
+                        <p>{{producto[7]}}</p>
                         <p class="card-time"><span class="fas fa-clock"></span> 15-30 mins</p>
                     </div>
                     
                 </div> 
-                <div class="products-preview">
-                    <div class="preview" data-target="{{producto[0]}}">
+                <div class="products-preview" id="products-preview">
+                    <div class="preview" id="preview" data-target="{{producto[0]}}">
                        <i class="fas fa-times"></i>
                        <img src="{{producto[6]}}" alt="">
                        <h3>{{producto[4]}}</h3>
@@ -75,14 +75,14 @@ Pide tu comida a domicilio
                           <i class="fas fa-star-half-alt"></i>
                           <span>( 250 )</span>
                        </div>
-                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+                       <p>{{producto[7]}}</p>
                        <div class="price">${{producto[5]}}</div>
                        <div class="buttons">
                           <a href="#" class="buy">buy now</a>
-                          <a href="#" class="cart">add to cart</a>
+                          <a href="#" class="cart" data-id="{{producto[0]}}">add to cart</a>
                        </div>
                     </div>
-                 </div>
+                </div>
             </div>
             
             
@@ -90,41 +90,18 @@ Pide tu comida a domicilio
         </div>
     </div>
     <!--order dashboard-->
-    <div class="dashboard-order">
+    <div class="dashboard-order" id="dashboard-order">
         <h3>Order Menu</h3>
         <div class="order-address">
             <p>Address Delivery</p>
-            <h4>221 B Baker Street, london</h4>
+            <h4>Street 11B No. 4-45, Mocoa</h4>
         </div>
         <div class="order-time">
             <span class="fas fa-clock"> </span>30 mins <span class="fas fa-map-marker-alt"></span>2 km
         </div>
-
-        <div class="order-wrapper">
-            <div class="order-card">
-                <img class="order-image" src="img/tacos-mexicanos.jpg" alt="">
-                <div class="order-detail">
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <i class="fa fa-times"></i><input type="text" value="1">
-                </div>
-                <h4 class="order-price">$35.000</h4>
-            </div>
-            <div class="order-card">
-                <img class="order-image" src="img/pizza-margarita-3684.jpg" alt="">
-                <div class="order-detail">
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <i class="fa fa-times"></i><input type="text" value="2">
-                </div>
-                <h4 class="order-price">$25.000</h4>
-            </div>
-            <div class="order-card">
-                <img class="order-image" src="img/salchipapas.jpg" alt="">
-                <div class="order-detail">
-                    <p>Lorem ipsum dolor sit amet</p>
-                    <i class="fa fa-times"></i><input type="text" value="3">
-                </div>
-                <h4 class="order-price">$12.000</h4>
-            </div>
+    <!--order products-->
+        <div class="order-wrapper" id="order-wrapper">
+            
         </div>
         <hr class="divider">
         <div class="order-total">

@@ -268,9 +268,10 @@ def crearProducto():
     categoria= request.form.get('category')
     disponibilidad= request.form.get('avaliability')
     imagen = request.files['image']
+    descripcion= request.form.get('description')
     try: 
         img = empresaControllers.nombreImagen(imagen)
-        empresasModels.crearProducto(idEmpresa=idEmpresa, categoria=categoria, disponibilidad=disponibilidad, nombre=nombre, precio=precio,imagen='/static/resources/imagen_empresa/'+img)
+        empresasModels.crearProducto(idEmpresa=idEmpresa, categoria=categoria, disponibilidad=disponibilidad, nombre=nombre, precio=precio,imagen='/static/resources/imagen_empresa/'+img, descripcion= descripcion)
     except:
         flash('No se ha podido guardar el producto', 'error')
     imagen.save('./static/resources/imagen_empresa/'+str(img))
@@ -292,6 +293,7 @@ def editarProducto(id):
     categoria= request.form.get('category')
     disponibilidad= request.form.get('avaliability')
     imagen = request.files['image']
+    descripcion = request.form.get('description')
     
     if not categoria.isdigit():
         categoria = None
@@ -305,7 +307,7 @@ def editarProducto(id):
         imagenn = None  
 
     try:
-        empresasModels.editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id)
+        empresasModels.editarProductosCargar(categoria ,disponibilidad, nombre, precio, imagenn, id, descripcion)
         flash('Se ha editado el producto correctamente', 'success')
     except:
         flash('No se ha podido editado el producto ', 'error')
