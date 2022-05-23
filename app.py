@@ -159,7 +159,10 @@ def cambiarContraseña(email):
 @app.route('/empresas/empresaPagina')
 def home():
 
-    return render_template('empresas/home.html')
+    id=empresaControllers.obtenerId(session)
+    datos=empresasModels.obtenerEmpresa(id)
+    productos = empresasModels.obtenerProductos(id)
+    return render_template('empresas/home.html', datos = datos, productos=productos[0][0])
 
 @app.route('/empresas/empresaPagina/configuracion', methods=['GET', 'POST'])
 def editarEmpresa():
@@ -167,10 +170,13 @@ def editarEmpresa():
             id=empresaControllers.obtenerId(session)
             datos=empresasModels.obtenerEmpresa(id)
             form = EditUser(
-            name=datos[2]
+            name=datos[2],
+            phone = datos[3],
+            address=datos[4],
+            description=datos[7]
              ) 
             return render_template('empresas/editarEmpresa.html', datos=datos, form=form)
-    is_valid=True
+    #is_valid=True
     imagen = request.files['img']
     name = request.form.get('name')
     phone = request.form.get('phone')
@@ -205,8 +211,9 @@ def editarEmpresa():
 @app.route('/empresas/empresaPagina/categorias')
 def categorias():
     id=empresaControllers.obtenerId(session)
+    datos=empresasModels.obtenerEmpresa(id)
     categorias = empresasModels.listarCategoria(id)
-    return render_template('/categorias/listarCategoria.html', categorias=categorias)
+    return render_template('/categorias/listarCategoria.html', categorias=categorias, datos = datos)
 
 @app.route('/empresas/empresaPagina/categorias/eliminar/<string:id>')
 def eliminarCategoria(id):
@@ -220,14 +227,15 @@ def eliminarCategoria(id):
    
 @app.route('/empresas/empresaPagina/categorias/crear', methods=['GET', 'POST'])
 def crearCategoria():
+    id=empresaControllers.obtenerId(session)
     if request.method == 'GET':
-        return render_template('/categorias/crearCategoria.html')
-    id=str(session['user_id'][0])
+        datos=empresasModels.obtenerEmpresa(id)
+        return render_template('/categorias/crearCategoria.html', datos = datos)
     nombreCategoria = request.form.get('nombreCategoria').upper()
     if(nombreCategoria==""):
         flash('El campo nombre categoria es requerido', 'error')
         return redirect(request.url)
-    if empresasModels.obtenerCategoria(nombreCategoria):
+    if empresasModels.obtenerCategoria(nombreCategoria, id):
         flash('Ya existe esta categoria', 'error')
         return redirect(request.url)
     try:
@@ -240,18 +248,20 @@ def crearCategoria():
 
 @app.route('/empresas/empresaPagina/menu')
 def menu():
-    ids=str(session['user_id'][0])
-    productos=empresasModels.listarProductos(ids)
-    return render_template('productos/listarProductos.html', productos=productos)
+    id=empresaControllers.obtenerId(session)
+    datos=empresasModels.obtenerEmpresa(id)
+    productos=empresasModels.listarProductos(id)
+    return render_template('productos/listarProductos.html', productos=productos, datos= datos)
 
 
 @app.route('/empresas/empresaPagina/menu/agregarProducto', methods=['GET', 'POST'])
 def crearProducto():
     if request.method == 'GET':
-        id= str(session['user_id'][0])
+        id=empresaControllers.obtenerId(session)
+        datos=empresasModels.obtenerEmpresa(id)
         estado= empresasModels.obtenerEstado()
         categorias=empresasModels.listarCategoria(id)
-        return render_template('productos/crearProducto.html', categorias=categorias, estado=estado)
+        return render_template('productos/crearProducto.html', categorias=categorias, estado=estado, datos=datos)
     idEmpresa= str(session['user_id'][0])
     nombre= request.form.get('name').upper()
     precio = request.form.get('price')
@@ -270,11 +280,12 @@ def crearProducto():
 @app.route('/empresas/empresaPagina/menu/editarProducto/<string:id>', methods=['GET','POST'])
 def editarProducto(id):
     if request.method == 'GET':
-        ids=str(session['user_id'][0])
+        ids=empresaControllers.obtenerId(session)
+        datos=empresasModels.obtenerEmpresa(id)
         categorias=empresasModels.listarCategoria(ids)
         estado= empresasModels.obtenerEstado()
         productos=empresasModels.editarProducto(id)
-        return render_template('/productos/editarProducto.html', producto = productos, estado = estado, categorias=categorias)
+        return render_template('/productos/editarProducto.html', producto = productos, estado = estado, categorias=categorias, datos = datos)
 
     nombre= request.form.get('name').upper()
     precio = request.form.get('price')

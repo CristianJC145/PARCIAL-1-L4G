@@ -66,9 +66,9 @@ def obtenerId(email):
     cursor.execute("select id_empresa from empresa where email = %s", (email+"",))
     obtenerId = cursor.fetchone()
     return obtenerId
-def obtenerCategoria(nombreCategoria):
+def obtenerCategoria(nombreCategoria,id):
     cursor = db.cursor()
-    cursor.execute("select * from categoria where nombre = %s",(nombreCategoria,))
+    cursor.execute("select * from categoria where nombre = %s and empresa_id = %s",(nombreCategoria, id,))
     nombreCategoria = cursor.fetchone()
     return nombreCategoria
 
@@ -101,14 +101,14 @@ def crearProducto(idEmpresa, categoria, disponibilidad,  nombre, precio,imagen):
             )values (%s,%s,%s,%s,%s,%s)
         """, (idEmpresa+"", categoria, disponibilidad, nombre, precio, imagen,))
     db.commit()
-def listarProductos(ids):
+def listarProductos(id):
     cursor = db.cursor()
     cursor.execute("""SELECT `producto`.`id_producto`, `imagen`, `nombre_producto`, `categoria`.`nombre`, `precio`, `estado`.`estado`
 	FROM `producto`
 	INNER JOIN `categoria` ON `producto`.`id_categoria` = `categoria`.`id`
 	INNER JOIN `estado`ON `producto`.`id_estado` = `estado`.`id`
 	WHERE id_empresa = %s
-	GROUP BY `producto`.`id_producto`""", (ids,))
+	GROUP BY `producto`.`id_producto`""", (id,))
     productos = cursor.fetchall()
     return productos
 def eliminarProducto(id):
@@ -171,4 +171,10 @@ def editarEmpresa(imagenn,name,phone,address,password,description):
     cursor = db.cursor()
     cursor.execute("UPDATE empresa set "+imagen_sql + " nombre_empresa = '"+name+"', contacto = '"+phone+"', direccion = '"+address+"', "+password_sql + "descripcion = '"+description+"'")
     db.commit()
+
+def obtenerProductos(id):
+    cursor = db.cursor()
+    cursor.execute("SELECT COUNT(*) FROM producto WHERE id_empresa = %s", (id,))
+    productos = cursor.fetchall()
+    return productos
     

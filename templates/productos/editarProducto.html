@@ -6,6 +6,34 @@
 
 {% block content %}
 <div class="main-content">
+  <header>
+    <div class="user-wrapper">
+        <img src="" alt="" width="40px" height="40px">
+        <div>
+            <h5><div class="main-content">
+                <header>
+                    <h2>
+                        <label for="nav-toogle">
+                            <span class="las la-bars"></span>
+                        </label>
+                        EDIT PRODUCT
+                    </h2>
+                    <div class="search-wrapper">
+                        <span class="las la-search"></span>
+                        <input type="search" placeholder="Search">
+                    </div>
+                    <div class="user-wrapper">
+                        <img src="{{(datos[1])}}" alt="" width="40px" height="40px">
+                        <div>
+                            <h5>{{(datos[2])}}</h5>
+                            <small>Super admin</small>
+                        </div>
+                    </div>
+                </header>
+            </div></h5>
+        </div>
+    </div>
+</header>
     <main>
         <div class="center">
             <form action="{{ url_for('editarProducto', id=producto[0]) }}" enctype="multipart/form-data" method='POST'>

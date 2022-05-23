@@ -1,52 +1,82 @@
 {% extends 'layouts/baseEmpresa.html' %}
 
 {% block title %}
-    PAGINA DE LA EMPRESA
+PAGINA DE LA EMPRESA
 {% endblock %}
 
 {% block content %}
 <div class="main-content">
-    <main>
-        <div class="center">
-            <form action="{{ url_for('crearProducto') }}" enctype="multipart/form-data" method='POST'>
-              <h2>Add item</h2>
-                <div class="txt_field">
-                  <input type="text" required id="name" name="name">
-                  <span></span>
-                  <label>Name</label>
+  <header>
+    <div class="user-wrapper">
+      <img src="" alt="" width="40px" height="40px">
+      <div>
+        <h5>
+          <div class="main-content">
+            <header>
+              <h2>
+                <label for="nav-toogle">
+                  <span class="las la-bars"></span>
+                </label>
+                CREATE PRODUCT
+              </h2>
+              <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Search">
+              </div>
+              <div class="user-wrapper">
+                <img src="{{(datos[1])}}" alt="" width="40px" height="40px">
+                <div>
+                  <h5>{{(datos[2])}}</h5>
+                  <small>Super admin</small>
                 </div>
-                <div class="txt_field">
-                  <input type="text" required id="price" name="price">
-                  <span></span>
-                  <label>Price</label>
-                </div>
-                <div class="txt_field">
-                  <select class="" aria-label=".form-select-lg example" id="category" name="category">
-                      <option selected>Category</option>
-                    {% for categoria in categorias %}
-                       <option value="{{categoria[0]}}">{{categoria[2]}}</option>
-                    {% endfor %}
-                  </select>
-                  <label></label>
-                </div>
-                <div class="txt_field">
-                  <select class="" aria-label=".form-select-lg example" id="avaliability" name="avaliability">
-                      <option selected>Availability</option>
-                    {% for est in estado %}
-                       <option value="{{est[0]}}">{{est[1]}}</option>
-                    {% endfor %}
-                  </select>
-                  <label></label>
-                </div>
-                <div class="txt_field">
-                  <input type="file" required id="image" name="image">
-                  <span></span>
-                  <label></label>
-                </div>
-                <input type="submit" value="submit">
-            </form>
+              </div>
+            </header>
           </div>
-    </main>
+        </h5>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="center">
+      <form action="{{ url_for('crearProducto') }}" enctype="multipart/form-data" method='POST'>
+        <h2>Add item</h2>
+        <div class="txt_field">
+          <input type="text" required id="name" name="name">
+          <span></span>
+          <label>Name</label>
+        </div>
+        <div class="txt_field">
+          <input type="text" required id="price" name="price">
+          <span></span>
+          <label>Price</label>
+        </div>
+        <div class="txt_field">
+          <select class="" aria-label=".form-select-lg example" id="category" name="category">
+            <option selected>Category</option>
+            {% for categoria in categorias %}
+            <option value="{{categoria[0]}}">{{categoria[2]}}</option>
+            {% endfor %}
+          </select>
+          <label></label>
+        </div>
+        <div class="txt_field">
+          <select class="" aria-label=".form-select-lg example" id="avaliability" name="avaliability">
+            <option selected>Availability</option>
+            {% for est in estado %}
+            <option value="{{est[0]}}">{{est[1]}}</option>
+            {% endfor %}
+          </select>
+          <label></label>
+        </div>
+        <div class="txt_field">
+          <input type="file" required id="image" name="image">
+          <span></span>
+          <label></label>
+        </div>
+        <input type="submit" value="submit">
+      </form>
+    </div>
+  </main>
 </div>
 
 {% endblock %}

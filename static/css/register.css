@@ -43,7 +43,7 @@ body{
   margin: 20px 0 12px 0;
 }
 form .user-details .input-box{
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
 }
 form .input-box span.details{
@@ -101,20 +101,51 @@ form .input-box span.details{
  }
  form .button{
    height: 45px;
-   margin: 35px 0
  }
  form .button input{
-   height: 100%;
-   width: 100%;
-   border-radius: 5px;
-   border: none;
-   color: #fff;
-   font-size: 18px;
-   font-weight: 500;
-   letter-spacing: 1px;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  position: absolute;
+  height: 3rem;
+  width: 15rem;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button a{
+  position: absolute;
+  display: inline-flex;
+  transform: translateX(360px);
+  padding: 0.7rem 5.54rem;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ .select-img{
+  display: inline-flex;
+  padding: 10px;
+  cursor: pointer;
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  border-radius: 50px;
+ }
+ .select-img:hover{
+  background: linear-gradient(-135deg, #1e98e9, #aa19e4);
+ }
+
+ .img-preview img{
+  width: 80%;
+  height: 136px;
+  object-fit: cover;
+  border-radius: 15px;
+  transform: translate(0px, 15px);
  }
  form .button input:hover{
   /* transform: scale(0.99); */

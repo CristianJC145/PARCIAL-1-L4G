@@ -6,6 +6,34 @@
 
 {% block content %}
 <div class="main-content">
+    <header>
+        <div class="user-wrapper">
+            <img src="" alt="" width="40px" height="40px">
+            <div>
+                <h5><div class="main-content">
+                    <header>
+                        <h2>
+                            <label for="nav-toogle">
+                                <span class="las la-bars"></span>
+                            </label>
+                            HOME
+                        </h2>
+                        <div class="search-wrapper">
+                            <span class="las la-search"></span>
+                            <input type="search" placeholder="Search">
+                        </div>
+                        <div class="user-wrapper">
+                            <img src="{{(datos[1])}}" alt="" width="40px" height="40px">
+                            <div>
+                                <h5>{{(datos[2])}}</h5>
+                                <small>Super admin</small>
+                            </div>
+                        </div>
+                    </header>
+                </div></h5>
+            </div>
+        </div>
+    </header>
     <main>
         <div class="cards">
             <div class="card-single">
@@ -19,7 +47,7 @@
             </div>
             <div class="card-single">
                 <div>
-                    <h1>79</h1>
+                    <h1>{{productos}}</h1>
                     <span>Products</span>
                 </div>
                 <div>

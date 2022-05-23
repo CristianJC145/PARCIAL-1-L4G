@@ -34,19 +34,31 @@
             <input type="text" id="descripcion" name="descripcion" value="{{ descripcion }}"/>
           </div>
           <div class="input-box">
-            <label for="imagen">Imagen</label>
-            <input type="file" id="imagen" name="imagen" class="form-control" />
-          </div>
-          <div class="input-box">
             <span class="details">Password</span>
             <input type="password" placeholder="Min 8 max 15 characteres" id="password" name="password" class="form-control" />
           </div>
+          <div class="input-box">
+            <label class="select-img" for="imagen">Upload Image</label>
+            <input type="file" id="imagen" name="imagen" class="form-control" style="display: none;" />
+            <div class="img-preview" id="imagePreview">
+
+            </div>
+          </div>
+          
           <div class="input-box">
             <span class="details">Confirm Password</span>
             <input type="password" placeholder="Confirm your password" required>
           </div>
         </div>
-        
+        {% with messages = get_flashed_messages(category_filter=['error']) %}
+        {% if messages %}
+        <div class="alert" role="alert" style="text-align: center; padding: 0.5rem 2rem ;color: red; font-size: 14px; border: 1.5px solid rgba(42, 38, 38, 0.078)">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
         <div class="button">
           <a href="{{ url_for('index') }}" class="btn">Volver</a>
           <input type="submit" value="Register">
@@ -54,6 +66,25 @@
       </form>
     </div>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+        function filePreview(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+              $('#imagePreview').html("<img src ='"+e.target.result+"' />");
+            }
+
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        $('#imagen').change(function () {
+          filePreview(this);
+        });
+      })();
+  </script>
 </body>
 </html>

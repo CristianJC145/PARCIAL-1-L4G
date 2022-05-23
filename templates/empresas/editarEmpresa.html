@@ -50,8 +50,8 @@ Configuration
                         </div>
                     </div>
                     <div>
-                        <h1>{{(session['user_id'][2])}}</h1>
-                        <small>{{(session['user_id'][5])}}</small>
+                        <h1>{{(datos[2])}}</h1>
+                        <small>{{(datos[5])}}</small>
                     </div>
                 </div>
                 {% with messages = get_flashed_messages(category_filter=['success']) %}
@@ -66,23 +66,22 @@ Configuration
                 <div class="setting-tools-content">
 
                     <div class="stt-tools-item">
-                        <input type="text" id="name" name="name" value="{{(datos[2])}}">
                         {{form.name()}}
                         <span></span>
                         <label>Name</label>
                     </div>
                     <div class="stt-tools-item">
-                        <input type="number" id="phone" name="phone" value="{{(datos[3])}}">
+                        {{form.phone()}}
                         <span></span>
                         <label>Phone</label>
                     </div>
                     <div class="stt-tools-item">
-                        <input type="text" id="address" name="address" value="{{(datos[4])}}">
+                        {{form.address()}}
                         <span></span>
-                        <label>Addres</label>
+                        <label>Address</label>
                     </div>
                     <div class="stt-tools-item">
-                        <input type="text" id="description" name="description" value="{{(datos[7])}}">
+                        {{form.description()}}
                         <span></span>
                         <label>Description</label>
                     </div>
