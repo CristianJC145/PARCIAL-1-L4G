@@ -1,0 +1,157 @@
+{% extends 'layouts/baseProductos.html' %}
+
+{% block title %}
+Pide tu comida a domicilio
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <header class="header">
+        <a class="btn-icon" href="{{ url_for('carta')}}">
+            <h2 styl><img src="https://img.icons8.com/color/48/000000/kawaii-taco.png" /></h2>
+        </a>
+    </header>
+    <div class="paid-content">
+        <div class="payment">
+            <h1>Termina tu pedido</h1>
+            <div class="pay-inline">
+                <small>Pago en linea</small>
+            </div>
+            <div class="contenedor">
+                <div class="tarjeta" id="tarjeta">
+                    <div class="delantera">
+                        <div class="logo-marca" id="logo-marca">
+                            <!-- <img src="/static/resources/logos/visa.png" alt=""> -->
+                        </div>
+                        <img src="/static/resources/chip-tarjeta.png" class="chip" alt="">
+                        <div class="datos">
+                            <div class="grupo" id="numero">
+                                <p class="label">Número Tarjeta</p>
+                                <p class="numero">#### #### #### ####</p>
+                            </div>
+                            <div class="flexbox">
+                                <div class="grupo" id="nombre">
+                                    <p class="label">Nombre Tarjeta</p>
+                                    <p class="nombre"></p>
+                                </div>
+        
+                                <div class="grupo" id="expiracion">
+                                    <p class="label">Expiracion</p>
+                                    <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="trasera">
+                        <div class="barra-magnetica"></div>
+                        <div class="datos">
+                            <div class="grupo" id="firma">
+                                <p class="label">Firma</p>
+                                <div class="firma"><p></p></div>
+                            </div>
+                            <div class="grupo" id="ccv">
+                                <p class="label">CCV</p>
+                                <p class="ccv"></p>
+                            </div>
+                        </div>
+                        <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem, voluptates illo.</p>
+                        <a href="#" class="link-banco">www.tubanco.com</a>
+                    </div>
+                </div>
+        
+                <!-- Contenedor Boton Abrir Formulario -->
+                <div class="contenedor-btn">
+                    <button class="btn-abrir-formulario" id="btn-abrir-formulario">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+        
+                <!-- Formulario -->
+                <form action="{{ url_for('pedido') }}" method="POST" id="formulario-tarjeta" class="formulario-tarjeta">
+                    <div class="grupo">
+                        <label for="inputNumero">Número Tarjeta</label>
+                        <input type="text" id="inputNumero" name="inputNumero" maxlength="19" autocomplete="off">
+                    </div>
+                    <div class="grupo">
+                        <label for="inputNombre">Nombre</label>
+                        <input type="text" id="inputNombre" name="inputNombre" maxlength="19" autocomplete="off">
+                    </div>
+                    <div class="flexbox">
+                        <div class="grupo expira">
+                            <label for="selectMes">Expiracion</label>
+                            <div class="flexbox">
+                                <div class="grupo-select">
+                                    <select name="mes" id="selectMes">
+                                        <option disabled selected>Mes</option>
+                                    </select>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                                <div class="grupo-select">
+                                    <select name="year" id="selectYear">
+                                        <option disabled selected>Año</option>
+                                    </select>
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="grupo ccv">
+                            <label for="inputCCV">CCV</label>
+                            <input type="text" id="inputCCV" name="inputCCV" maxlength="3">
+                        </div>
+                    </div>
+                    <button disabled type="submit" class="btn-enviar" id="btn-enviar">Hacer pedido</button>
+                </form>
+            </div>
+        </div>
+        <div class="cart">
+            <div class="cart-pay">
+                <div class="restaurant-cart-header">
+                    <div class="restaurant-cart-header-pretitle">Tu pedido en</div>
+                    <a class="restaurant-cart-header-title" href="#">Frisby</a>
+                    <a class="restaurant-cart-header-link" href="#">Ver menu</a>
+                </div>
+                <div class="restaurant-cart-items-list">
+                    <p class="restaurant-cart-group-name">Pollos</p>
+                    <div class="restaurant-cart-item">
+                        <div class="restaurant-cart-item-description">
+                            <span>1x Tamal tolimense especial de 700 gramos aprox</span>
+                            <span>$ 9.200</span>
+                        </div>
+                    </div>
+                    <div class="restaurant-cart-item-garnish">
+                        <span>1x Con cubiertos</span>
+                    </div>
+                </div>
+                <div class="restaurant-cart-item-buttons-wrapper">
+                    <button type="button" role="button" label="Editar" class="restaurant-cart-item-button">
+                        <span class="btn-label">Editar</span>
+                    </button>
+                    <button type="button" role="button" class="restaurant-cart-item-button btn--delete">
+                        <span class="btn-label">Eliminar</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="restaurant-cart-footer">
+                <div class="restaurant-cart-footer-info">
+                    <div class="restaurant-cart-justify">
+                        <span class="restaurant-cart-footer-info-description">Subtotal</span>
+                        <span id="subtotal-compra"></span>
+                    </div>
+                    <div class="restaurant-cart-footer-tax restaurant-cart-justify">
+                        <span class="restaurant-cart-footer-info-description">Impuesto</span>
+                        <span id="tax-compra"></span>
+                    </div>
+                    <div class="restaurant-cart-footer-total restaurant-cart-justify">
+                        <span class="restaurant-cart-footer-info-description">Total</span>
+                        <span id="total-compra"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

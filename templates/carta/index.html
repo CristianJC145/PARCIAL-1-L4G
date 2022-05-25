@@ -76,7 +76,7 @@ Pide tu comida a domicilio
                           <span>( 250 )</span>
                        </div>
                        <p>{{producto[7]}}</p>
-                       <div class="price">${{producto[5]}}</div>
+                       <div class="price">{{producto[5]}}</div>
                        <div class="buttons">
                           <a href="#" class="buy">buy now</a>
                           <a href="#" class="cart" data-id="{{producto[0]}}">add to cart</a>
@@ -105,17 +105,17 @@ Pide tu comida a domicilio
         </div>
         <hr class="divider">
         <div class="order-total">
-            <p>subtotal <span>$126.000</span></p>
-            <p>Tax(10%) <span>$12.600</span></p>
-            <p>Delivery free <span>$3.000</span></p>
+            <p>subtotal <span id = subtotal></span></p>
+            <p>Tax(19%) <span id="tax"></span></p>
+            <p>Delivery free <span></span></p>
             <div class="order-promo">
                 <input class="input-promo" type="text" placeholder="Apply Vouncher">
                 <button class="button-promo">Find Promo</button>
             </div>
             <hr class="divider">
-            <p>Total <span>$17.900</span></p>
+            <p>Total <span id="total"></span></p>
         </div>
-        <button class="checkout">
+        <button class="checkout" id="checkout">
             Checkout
         </button>
     </div>

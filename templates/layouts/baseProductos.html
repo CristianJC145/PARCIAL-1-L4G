@@ -9,12 +9,21 @@
         <link rel="stylesheet" href="{{url_for('static',filename='css/carta.css')}}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <link rel="stylesheet" href="/static/css/finalizarPago.css">
         <title>Pide tu comida a domicilio</title>
     </head>
 <body>
     {% block content %}{% endblock %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/modal.js" defer></script>
-    <script src="/static/js/app.js"></script>
+    <script src="/static/js/carrito.js"></script>
+    <script src="/static/js/pedido.js"></script>
+    <script src="/static/js/compra.js"></script>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+	<script src="/static/js/targeta.js"></script>
+    <script src="/static/js/validarformulario.js"></script>
 
 </body>
 </html>

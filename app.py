@@ -326,4 +326,24 @@ def carta():
     productos=empresasModels.listarTodosProductos()
     return render_template('carta/index.html', productos=productos)
 
+@app.route('/pedido/finalizar', methods=['GET','POST'])
+def pedido():
+    if request.method == 'GET':
+        return render_template('usuarios/finalizarPago.html')
+
+    numeroTargeta = request.form.get('inputNumero')
+    nombre = request.form.get('inputNombre')
+    cvv = request.form.get('inputCCV')
+    año = request.form.get('year')
+    mes = request.form.get('mes')
+
+    if numeroTargeta and nombre and cvv and año and mes:
+        flash("Pago hecho con exito" , 'success')
+    else:
+        return redirect(url_for('pedido'))
+
+    return redirect(url_for('carta'))
+
+
+
 app.run(debug=True)
