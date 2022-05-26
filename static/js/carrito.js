@@ -48,8 +48,9 @@ class Carrito{
         `;
         listaProductos.appendChild(div);
         this.guardarProductoLocalStorage(producto);
-
         this.calcularTotal()
+        
+        
     }
     
     eliminarProducto(e){
@@ -69,6 +70,7 @@ class Carrito{
         productos = this.obtenterProductosLocalStorage();
         productos.push(producto);
         localStorage.setItem('productos', JSON.stringify(productos));
+        
     }
     obtenterProductosLocalStorage(){
         let productoLS;
@@ -90,13 +92,20 @@ class Carrito{
                 <img class="order-image" src="${producto.imagen}">
                 <div class="order-detail">
                     <p>${producto.titulo}</p>
-                    <a href="" class="delete-product" data-id="${producto.id}"><i class="fa fa-times"></i><input type="text" value="1"></a>
+                    <a href="" class="delete-product" data-id="${producto.id}"><i class="fa fa-times"></i><input type="number" class="cantidadPedidoBtn" value="1" min="0" max="10"></a>
                 </div>
                 <h4 class="order-price">${producto.precio}</h4>
             </div>
             `;
             listaProductos.appendChild(div);
         });
+        console.log("agregando evento")
+        listaProductos.querySelectorAll('.cantidadPedidoBtn').forEach((amount)=>{
+            amount.addEventListener('change', () =>{
+                console.log("cambiar cantidad");
+                this.calcularTotal()
+            });
+        })
     }
     eliminarProductoLocalStorage(productoId){
         let productosLS;
