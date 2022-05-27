@@ -68,6 +68,12 @@ p{
 .sidebar-menu:hover > a{
     color: var(--yellow)
 }
+.dashboard-business {
+    height: 100%;
+    width: 100%;
+    padding-right: 30px;
+    padding-left: 60px;
+}
 .dashboard {
     height: 100%;
     width: 100%;
@@ -174,6 +180,43 @@ p{
 .order-time{
     font-size: 0.8rem;
     color: var(--darkBlack)
+}
+.search-wrapper {
+    transform: translateX(20rem);
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    height: 40px;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+}
+.sidebar-brand img{
+    vertical-align: middle;
+}
+.sidebar-brand{
+    left: .6rem;
+    /*transform: translateX(-3rem);*/
+    position: absolute;
+
+}
+
+.sidebar-brand span{
+    display: inline-block;
+    padding-right: 1rem;
+}
+.search-wrapper span{
+    display:inline-block;
+    padding:0rem 1rem;
+    font-size: 1.5rem;
+}
+
+.search-wrapper input{
+    height: 100%;
+    padding: .5rem;
+    background-color: var(--darkBlack);
+    border:none;
+    outline: none;
 }
 .order-wrapper{
     height: 180px;

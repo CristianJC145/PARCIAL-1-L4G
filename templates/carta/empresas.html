@@ -5,5 +5,46 @@ Pide tu comida a domicilio
 {% endblock %}
 
 {% block content %}
-    <h3 >companies available</h3>
+
+<h3 class="logo">
+    <div class="sidebar-brand">
+        <h2><img src="https://img.icons8.com/color/48/000000/kawaii-taco.png"><span>FastFood</span></h2>
+    </div>
+    <div class="search-wrapper">
+        <span class="las la-search"></span>
+        <input type="search" placeholder="Search dish or restaurant">
+    </div>
+</h3>
+
+<div class="dashboard-business">
+    <div class="dashboard-banner">
+        <div class="dashboard-menu">
+            <a href="#">free shipping</a>
+            <a href="#">Top Business</a>
+            <a href="#">Near Me</a>
+            <a href="#">Top Rated</a>
+            <a href="#">All Business</a>
+        </div>
+    </div>
+    <h3 class="dashboard-title">Recommended Food For You</h3>
+
+    <div class="dashboard-content">
+        {% for empresa in empresas %}
+        <a href="{{ url_for('carta', id = empresa[0]) }}" style="text-decoration: none; color: black;">
+            <div class="wrapper-dashboard">
+                <div class="dashboard-card" data-name="{{empresa[0]}}">
+                    <img class="card-image" src="{{empresa[1]}}">
+                    <div class="card-detail">
+                        <h4>{{empresa[2]}}</h4>
+                        <p>{{empresa[7]}}</p>
+                        <p class="card-time"><span class="fas fa-clock"></span> 25-40 mins</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </a>
+    </div>
+</div>
+
+
 {% endblock %}

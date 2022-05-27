@@ -157,12 +157,8 @@ def verificarCategoriaProducto(id):
     cursor.execute("SELECT * FROM producto WHERE id_categoria = '"+id+"'")
     producto = cursor.fetchall()
     return producto
-def listarTodosProductos():
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM producto")
-    productos = cursor.fetchall()
-    return productos
-def editarEmpresa(imagenn,name,phone,address,password,description):
+
+def editarEmpresa(imagenn,name,phone,address,password,description,id):
     imagen_sql=''
     password_sql=''
     if password:
@@ -170,7 +166,7 @@ def editarEmpresa(imagenn,name,phone,address,password,description):
     if imagenn:
         imagen_sql=" imagen= '"+imagenn+"', "
     cursor = db.cursor()
-    cursor.execute("UPDATE empresa set "+imagen_sql + " nombre_empresa = '"+name+"', contacto = '"+phone+"', direccion = '"+address+"', "+password_sql + "descripcion = '"+description+"'")
+    cursor.execute("UPDATE empresa set "+imagen_sql + " nombre_empresa = '"+name+"', contacto = '"+phone+"', direccion = '"+address+"', "+password_sql + "descripcion = '"+description + "' where id_empresa ='"+id+"' ")
     db.commit()
 
 def obtenerProductos(id):
@@ -178,4 +174,14 @@ def obtenerProductos(id):
     cursor.execute("SELECT COUNT(*) FROM producto WHERE id_empresa = %s", (id,))
     productos = cursor.fetchall()
     return productos
+def listarEmpresas():
+    cursor = db.cursor()
+    cursor.execute("SELECT * from empresa")
+    empresas = cursor.fetchall()
+    return empresas
+def listarProductosEmpresa(id):
+    cursor = db.cursor()
+    cursor.execute("SELECT * from producto where id_empresa = %s",(id,))
+    empresas = cursor.fetchall()
+    return empresas
     

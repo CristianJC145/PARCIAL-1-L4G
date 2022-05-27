@@ -183,6 +183,7 @@ def editarEmpresa():
     address = request.form.get('address')
     description = request.form.get('description')
     password = request.form.get('password')
+    id=empresaControllers.obtenerId(session)
     if imagen:
             img = empresaControllers.nombreImagen(imagen)
             imagenn='/static/resources/imagen_empresa/'+img
@@ -200,7 +201,7 @@ def editarEmpresa():
         password = None
 
     try:
-        empresasModels.editarEmpresa(imagenn,name, phone, address, password, description)
+        empresasModels.editarEmpresa(imagenn,name, phone, address, password, description,id)
         flash('Se ha editado su usuario correctamente', 'success')
     except:
         flash('Error al editar el usuario ', 'error')
@@ -323,16 +324,17 @@ def eliminarProducto(id):
 
 @app.route('/empresas')
 def empresas():
-    productos=empresasModels.listarTodosProductos()
-    return render_template('carta/empresas.html', productos=productos)
-@app.route('/productos_empresas')
-def carta():
-    productos=empresasModels.listarTodosProductos()
+    empresas=empresasModels.listarEmpresas()
+    return render_template('carta/empresas.html', empresas=empresas)
+@app.route('/productos_empresas/<string:id>')
+def carta(id):
+    productos=empresasModels.listarProductosEmpresa(id)
     return render_template('carta/index.html', productos=productos)
 
 @app.route('/pedido/finalizar', methods=['GET','POST'])
 def pedido():
     if request.method == 'GET':
+        #productos=empresasModels.listarProductosEmpresa(id)
         return render_template('usuarios/finalizarPago.html')
 
     numeroTargeta = request.form.get('inputNumero')
@@ -346,7 +348,6 @@ def pedido():
         msgWpp.enviarWpp(numero)
     else:
         return redirect(url_for('pedido'))
-
     return redirect(url_for('carta'))
 
 
