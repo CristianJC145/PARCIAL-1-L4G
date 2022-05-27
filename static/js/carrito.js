@@ -60,14 +60,9 @@ class Carrito{
             producto = e.target.parentElement.parentElement;
             productoId = producto.querySelector('.delete-product').getAttribute('data-id');
         }
-        if(e.target.classList.contains('restaurant-cart-item-button')){
-            e.target.parentElement.parentElement.remove();
-            producto = e.target.parentElement.parentElement;
-            productoId = producto.querySelector('.restaurant-cart-item-button').getAttribute('data-id');
-            console.log("aqui")
-        }
-        this.eliminarProductoLocalStorage(productoId)
-        this.calcularTotal()
+        this.eliminarProductoLocalStorage(productoId);
+        this.calcularTotal();
+        //this.calcularTotalCompra();
     }
 
     guardarProductoLocalStorage(producto){
@@ -155,7 +150,7 @@ class Carrito{
         document.getElementById('total').innerHTML = total.toFixed(2);
     }
 
-    calcularTotalCompra(){
+    /*calcularTotalCompra(){
         let productoLS;
         let total = 0, subtotal = 0 , tax = 0;
         productoLS = this.obtenterProductosLocalStorage();
@@ -170,7 +165,7 @@ class Carrito{
         document.getElementById('tax-compra').innerHTML =  tax;
         document.getElementById('total-compra').innerHTML = total.toFixed(2);
 
-    }
+    }*/
     leerLocalStorageCompra(){
         let productosLS;
         productosLS = this.obtenterProductosLocalStorage();
@@ -194,15 +189,14 @@ class Carrito{
                     <button type="button" role="button" label="Editar" class="restaurant-cart-item-button">
                         <span class="btn-label">Editar</span>
                     </button>
-                    <button type="button" role="button" class="restaurant-cart-item-button btn--delete" data-id="${producto.id}">
-                        <span class="btn-label">Eliminar</span>
+                    <button type="button" role="button" class="restaurant-cart-item-button delete-product btn--delete" data-id="${producto.id}">
+                        <span class="btn-label btn-delete-item">Eliminar</span>
                     </button>
                 </div>
             `;
             listaCompra.appendChild(div);
-            this.eliminarProducto(e)
         });
-        
+        this.calcularTotal();
     }
 }
 

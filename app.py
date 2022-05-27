@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 import hashlib
 from models import empresasModels
-from controllers import autenticacionCorreo, empresaControllers, validarDatos
+from controllers import autenticacionCorreo, empresaControllers, validarDatos, msgWpp
 from controllers.forms import LoginForm, EditUser
 app = Flask(__name__)
 app.secret_key = 'spbYO0JJOPUFLUikKYbKrpS5w3KUEnab5KcYDdYb'
@@ -321,6 +321,10 @@ def eliminarProducto(id):
     
     return redirect(url_for('menu'))
 
+@app.route('/empresas')
+def empresas():
+    productos=empresasModels.listarTodosProductos()
+    return render_template('carta/empresas.html', productos=productos)
 @app.route('/productos_empresas')
 def carta():
     productos=empresasModels.listarTodosProductos()
@@ -339,6 +343,7 @@ def pedido():
 
     if numeroTargeta and nombre and cvv and año and mes:
         flash("Pago hecho con exito" , 'success')
+        msgWpp.enviarWpp(numero)
     else:
         return redirect(url_for('pedido'))
 

@@ -15,6 +15,31 @@
         <title>Pide tu comida a domicilio</title>
     </head>
 <body>
+    <!--Header-->
+    
+    <!--Siderbar-->
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <span class="fas fa-search"></span>
+            <a href="#">Search</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-home"></span>
+            <a href="{{url_for('index')}}">Home</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-heart"></span>
+            <a href="#">Favs</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-user"></span>
+            <a href="#">Profile</a>
+        </div>
+        <div class="sidebar-menu">
+            <span class="fas fa-sliders-h"></span>
+            <a href="#">Settings</a>
+        </div>
+    </div>
     {% block content %}{% endblock %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/modal.js" defer></script>
