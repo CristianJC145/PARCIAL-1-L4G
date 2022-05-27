@@ -2,7 +2,7 @@ const carro = new Carrito();
 document.querySelectorAll('.dashboard-content .wrapper-dashboard').forEach(wrapper =>{
     let preveiwContainer=wrapper.querySelector('.products-preview')
     let previewBox = preveiwContainer.querySelector('.preview')
-    previewBox.querySelector('.cart').onclick = (e) =>{
+    previewBox.querySelector('.add-cart').onclick = (e) =>{
       carro.agregarProducto(e);
       preveiwContainer.style.display = 'none';
       previewBox.classList.remove('active');

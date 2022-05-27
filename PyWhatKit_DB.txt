@@ -1,0 +1,20 @@
+Date: 26/5/2022
+Time: 18:5
+Phone Number: +573123798206
+Message: Hi
+--------------------
+Date: 26/5/2022
+Time: 18:9
+Phone Number: +573182001879
+Message: Hi
+--------------------
+Date: 26/5/2022
+Time: 18:12
+Phone Number: +573182001879
+Message: Hi
+--------------------
+Date: 26/5/2022
+Time: 18:16
+Phone Number: +573182001879
+Message: Mensaje automatico desde python
+--------------------

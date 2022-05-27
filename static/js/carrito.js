@@ -1,7 +1,7 @@
 class Carrito{
     agregarProducto(e) {
         e.preventDefault();
-        if(e.target.classList.contains("cart")){
+        if(e.target.classList.contains("add-cart")){
             const producto = e.target.parentElement.parentElement;
             this.leerDatosProducto(producto);
         }
@@ -11,7 +11,7 @@ class Carrito{
             imagen: producto.querySelector('img').src,
             titulo: producto.querySelector('h3').textContent,
             precio: producto.querySelector('.price').textContent,
-            id: producto.querySelector('.cart').getAttribute("data-id"),
+            id: producto.querySelector('.add-cart').getAttribute("data-id"),
             cantidad : 1
         }
         let productosLS; 
@@ -48,9 +48,7 @@ class Carrito{
         `;
         listaProductos.appendChild(div);
         this.guardarProductoLocalStorage(producto);
-        this.calcularTotal()
-        
-        
+        this.calcularTotal()  
     }
     
     eliminarProducto(e){
@@ -62,9 +60,16 @@ class Carrito{
             producto = e.target.parentElement.parentElement;
             productoId = producto.querySelector('.delete-product').getAttribute('data-id');
         }
+        if(e.target.classList.contains('restaurant-cart-item-button')){
+            e.target.parentElement.parentElement.remove();
+            producto = e.target.parentElement.parentElement;
+            productoId = producto.querySelector('.restaurant-cart-item-button').getAttribute('data-id');
+            console.log("aqui")
+        }
         this.eliminarProductoLocalStorage(productoId)
         this.calcularTotal()
     }
+
     guardarProductoLocalStorage(producto){
         let productos;
         productos = this.obtenterProductosLocalStorage();
@@ -99,13 +104,7 @@ class Carrito{
             `;
             listaProductos.appendChild(div);
         });
-        console.log("agregando evento")
-        listaProductos.querySelectorAll('.cantidadPedidoBtn').forEach((amount)=>{
-            amount.addEventListener('change', () =>{
-                console.log("cambiar cantidad");
-                this.calcularTotal()
-            });
-        })
+        this.calcularTotal()
     }
     eliminarProductoLocalStorage(productoId){
         let productosLS;
@@ -136,20 +135,24 @@ class Carrito{
         }
     }
     calcularTotal(){
-        let productoLS;
+        /*listaProductos.querySelectorAll('.cantidadPedidoBtn').forEach((amount)=>{
+            amount.addEventListener('change', () =>{
+            });
+        });*/
         let total = 0, subtotal = 0 , tax = 0;
+        //const itemAmount = Number(amount.value);
+        let productoLS;
         productoLS = this.obtenterProductosLocalStorage();
-        for(let i = 0; i < productoLS.length; i++){
-            let element = Number(productoLS[i].precio * productoLS[i].cantidad);
-            total = total + element;
-        }
-        tax = parseFloat(total * 0.19).toFixed(2);
-        subtotal = parseFloat(total-tax).toFixed(2);
+            for(let i = 0; i < productoLS.length; i++){
+                let element = Number(productoLS[i].precio * productoLS[i].cantidad);
+                total = total + element;
+            }
+            tax = parseFloat(total * 0.19).toFixed(2);
+            subtotal = parseFloat(total-tax).toFixed(2);
 
         document.getElementById('subtotal').innerHTML = subtotal;
         document.getElementById('tax').innerHTML =  tax;
         document.getElementById('total').innerHTML = total.toFixed(2);
-
     }
 
     calcularTotalCompra(){
@@ -191,14 +194,17 @@ class Carrito{
                     <button type="button" role="button" label="Editar" class="restaurant-cart-item-button">
                         <span class="btn-label">Editar</span>
                     </button>
-                    <button type="button" role="button" class="restaurant-cart-item-button btn--delete">
+                    <button type="button" role="button" class="restaurant-cart-item-button btn--delete" data-id="${producto.id}">
                         <span class="btn-label">Eliminar</span>
                     </button>
                 </div>
             `;
             listaCompra.appendChild(div);
+            this.eliminarProducto(e)
         });
+        
     }
 }
+
 
 

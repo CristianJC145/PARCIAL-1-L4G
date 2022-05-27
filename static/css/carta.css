@@ -370,12 +370,12 @@ p{
     text-decoration: none;
  }
  
- .products-preview .preview .buttons a.cart{
+ .products-preview .preview .buttons a.add-cart{
     background: #444;
     color:#fff;
  }
  
- .products-preview .preview .buttons a.cart:hover{
+ .products-preview .preview .buttons a.add-cart:hover{
     background: var(--red);
     border: none;
  }
